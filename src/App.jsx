@@ -18,19 +18,12 @@ const shuffleArray = (array) => {
 function App() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useState(0); // Player score
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [gameStarted, setGameStarted] = useState(false);
   const [readyClicked, setReadyClicked] = useState(false);
-  const [shuffledQuestions, setShuffledQuestions] = useState([]);
 
-  useEffect(() => {
-    if (gameStarted) {
-      setShuffledQuestions(shuffleArray(questions));
-    }
-  }, [gameStarted]);
-
-  const currentQuestion = shuffledQuestions[currentQuestionIndex];
+  const currentQuestion = questions[currentQuestionIndex];
 
   const handleSelectAnswer = (answer) => {
     if (selectedAnswer !== null) return;
@@ -43,7 +36,6 @@ function App() {
     }
 
     setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-
     setSelectedAnswer(null);
   };
 
@@ -56,59 +48,44 @@ function App() {
   };
 
   return (
-    <>
-      <div className="app-container">
-        {!gameStarted ? (
-          <>
-            {!readyClicked && (
-              <div className="ready-button-container">
-                <button className="ready-button" onClick={handleReadyClick}>
-                  Ready
-                </button>
-              </div>
-            )}
-
-            {readyClicked && (
-              <StopLight onCountdownComplete={handleCountdownComplete} />
-            )}
-          </>
-        ) : (
-          <>
-            <Highway correctAnswers={correctAnswers} />
-            <div className="content-container">
-              {currentQuestion && (
-                <>
-                  <DisplayCode
-                    codeString={currentQuestion.codeSnippet}
-                    options={currentQuestion.options}
-                  />
-                  <AnswerGrid
-                    options={currentQuestion.options}
-                    onSelectAnswer={handleSelectAnswer}
-                  />
-                </>
-              )}
+    <div className="app-container">
+      {!gameStarted ? (
+        <>
+          {!readyClicked && (
+            <div className="ready-button-container">
+              <button className="ready-button" onClick={handleReadyClick}>
+                Ready
+              </button>
             </div>
-
-            {selectedAnswer && (
-              <div style={{ marginTop: "20px", color: "#ffffff" }}>
-                You selected: {selectedAnswer}
-              </div>
-            )}
-
+          )}
+          {readyClicked && (
+            <StopLight onCountdownComplete={handleCountdownComplete} />
+          )}
+        </>
+      ) : (
+        <>
+          <Highway correctAnswers={correctAnswers} playerScore={score} />{" "}
+          <div className="content-container">
+            <DisplayCode
+              codeString={currentQuestion.codeSnippet}
+              options={currentQuestion.options}
+            />
+            <AnswerGrid
+              options={currentQuestion.options}
+              onSelectAnswer={handleSelectAnswer}
+            />
+          </div>
+          {selectedAnswer && (
             <div style={{ marginTop: "20px", color: "#ffffff" }}>
-              Score: {score} / {questions.length}
+              You selected: {selectedAnswer}
             </div>
-
-            {correctAnswers >= 10 && (
-              <div style={{ marginTop: "20px", color: "#ffffff" }}>
-                You've completed the quiz! Your score: {score}
-              </div>
-            )}
-          </>
-        )}
-      </div>
-    </>
+          )}
+          <div style={{ marginTop: "20px", color: "#ffffff" }}>
+            Score: {score} / {questions.length}
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 
