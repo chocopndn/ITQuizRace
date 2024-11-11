@@ -1,10 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Highway from "./components/Highway/Highway";
 import DisplayCode from "./components/CodeDisplay/DisplayCode";
 import AnswerGrid from "./components/AnswerGrid/AnswerGrid";
 import questions from "./questions.json";
 import StopLight from "./components/StopLight/StopLight";
 import "./App.css";
+
+const shuffleArray = (array) => {
+  let shuffledArray = [...array];
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  }
+  return shuffledArray;
+};
 
 function App() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -13,8 +22,15 @@ function App() {
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [gameStarted, setGameStarted] = useState(false);
   const [readyClicked, setReadyClicked] = useState(false);
+  const [shuffledQuestions, setShuffledQuestions] = useState([]);
 
-  const currentQuestion = questions[currentQuestionIndex];
+  useEffect(() => {
+    if (gameStarted) {
+      setShuffledQuestions(shuffleArray(questions));
+    }
+  }, [gameStarted]);
+
+  const currentQuestion = shuffledQuestions[currentQuestionIndex];
 
   const handleSelectAnswer = (answer) => {
     if (selectedAnswer !== null) return;
@@ -60,14 +76,18 @@ function App() {
           <>
             <Highway correctAnswers={correctAnswers} />
             <div className="content-container">
-              <DisplayCode
-                codeString={currentQuestion.codeSnippet}
-                options={currentQuestion.options}
-              />
-              <AnswerGrid
-                options={currentQuestion.options}
-                onSelectAnswer={handleSelectAnswer}
-              />
+              {currentQuestion && (
+                <>
+                  <DisplayCode
+                    codeString={currentQuestion.codeSnippet}
+                    options={currentQuestion.options}
+                  />
+                  <AnswerGrid
+                    options={currentQuestion.options}
+                    onSelectAnswer={handleSelectAnswer}
+                  />
+                </>
+              )}
             </div>
 
             {selectedAnswer && (
