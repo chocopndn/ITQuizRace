@@ -1,0 +1,166 @@
+[
+  {
+    "question": "What does the following code do?",
+    "codeSnippet": "function greet() {\n  console.log('Hello, world!');\n}",
+    "options": [
+      "Prints 'Hello, world!' to the console",
+      "Defines a function named 'greet'",
+      "Throws an error",
+      "None of the above"
+    ],
+    "correctAnswer": "Prints 'Hello, world!' to the console"
+  },
+  {
+    "question": "What is the output of this function?",
+    "codeSnippet": "function add(a, b) {\n  return a + b;\n}\nconsole.log(add(2, 3));",
+    "options": ["5", "23", "undefined", "NaN"],
+    "correctAnswer": "5"
+  },
+  {
+    "question": "Which of the following is correct syntax for a JavaScript function?",
+    "codeSnippet": "",
+    "options": [
+      "function myFunc() {}",
+      "function: myFunc() {}",
+      "myFunc function() {}",
+      "None of the above"
+    ],
+    "correctAnswer": "function myFunc() {}"
+  },
+  {
+    "question": "What will be logged to the console for this code?",
+    "codeSnippet": "let x = 10;\nif (x > 5) {\n  console.log('Greater');\n} else {\n  console.log('Smaller');\n}",
+    "options": ["'Greater'", "'Smaller'", "'Error'", "'undefined'"],
+    "correctAnswer": "'Greater'"
+  },
+  {
+    "question": "What does 'let' do in JavaScript?",
+    "codeSnippet": "",
+    "options": [
+      "Declares a variable that can be reassigned",
+      "Declares a constant variable",
+      "Declares a function",
+      "None of the above"
+    ],
+    "correctAnswer": "Declares a variable that can be reassigned"
+  },
+  {
+    "question": "What will be the result of this code?",
+    "codeSnippet": "const arr = [1, 2, 3];\narr.push(4);\nconsole.log(arr);",
+    "options": ["[1, 2, 3, 4]", "[1, 2, 3]", "[4, 3, 2, 1]", "undefined"],
+    "correctAnswer": "[1, 2, 3, 4]"
+  },
+  {
+    "question": "How can you remove an element from the end of an array in JavaScript?",
+    "codeSnippet": "",
+    "options": [
+      "arr.pop()",
+      "arr.shift()",
+      "arr.unshift()",
+      "None of the above"
+    ],
+    "correctAnswer": "arr.pop()"
+  },
+  {
+    "question": "What does 'this' refer to in the following code?",
+    "codeSnippet": "const person = { name: 'Alice', greet: function() { console.log(this.name); }};\nperson.greet();",
+    "options": [
+      "The global object",
+      "The 'person' object",
+      "The 'greet' function",
+      "None of the above"
+    ],
+    "correctAnswer": "The 'person' object"
+  },
+  {
+    "question": "Which of the following methods can be used to convert a string into a number?",
+    "codeSnippet": "",
+    "options": ["parseInt()", "parseFloat()", "Number()", "All of the above"],
+    "correctAnswer": "All of the above"
+  },
+  {
+    "question": "What does the following code return?",
+    "codeSnippet": "function test() {\n  return typeof null;\n}",
+    "options": ["'object'", "'null'", "'undefined'", "'function'"],
+    "correctAnswer": "'object'"
+  },
+  {
+    "question": "What will be the output of the following code?",
+    "codeSnippet": "let x = 5;\nlet y = 10;\nconsole.log(x == y);",
+    "options": ["true", "false", "undefined", "null"],
+    "correctAnswer": "false"
+  },
+  {
+    "question": "Which of the following is used to handle errors in JavaScript?",
+    "codeSnippet": "",
+    "options": ["try...catch", "throw", "finally", "All of the above"],
+    "correctAnswer": "All of the above"
+  },
+  {
+    "question": "What is the purpose of a 'callback' function in JavaScript?",
+    "codeSnippet": "",
+    "options": [
+      "A function that is passed as an argument to another function",
+      "A function that handles exceptions",
+      "A function that is called at regular intervals",
+      "None of the above"
+    ],
+    "correctAnswer": "A function that is passed as an argument to another function"
+  },
+  {
+    "question": "Which of the following can be used to create an object in JavaScript?",
+    "codeSnippet": "",
+    "options": [
+      "Object literal",
+      "Object constructor",
+      "Object.create()",
+      "All of the above"
+    ],
+    "correctAnswer": "All of the above"
+  },
+  {
+    "question": "Which method is used to add an element to the beginning of an array?",
+    "codeSnippet": "",
+    "options": ["arr.unshift()", "arr.push()", "arr.pop()", "arr.shift()"],
+    "correctAnswer": "arr.unshift()"
+  },
+  {
+    "question": "What is the purpose of the 'bind()' method in JavaScript?",
+    "codeSnippet": "",
+    "options": [
+      "It creates a new function with a specific 'this' value",
+      "It attaches an event listener to an element",
+      "It makes a function asynchronous",
+      "None of the above"
+    ],
+    "correctAnswer": "It creates a new function with a specific 'this' value"
+  },
+  {
+    "question": "What does '===' operator check in JavaScript?",
+    "codeSnippet": "",
+    "options": [
+      "It checks both value and type",
+      "It checks only the value",
+      "It checks only the type",
+      "None of the above"
+    ],
+    "correctAnswer": "It checks both value and type"
+  },
+  {
+    "question": "What does the 'typeof' operator return in JavaScript?",
+    "codeSnippet": "",
+    "options": [
+      "The type of a given variable",
+      "The length of a string",
+      "The value of a variable",
+      "The instance of a class"
+    ],
+    "correctAnswer": "The type of a given variable"
+  },
+  {
+    "question": "Which of the following is NOT a primitive data type in JavaScript?",
+    "codeSnippet": "",
+    "options": ["Object", "String", "Number", "Boolean"],
+    "correctAnswer": "Object"
+  }
+]
