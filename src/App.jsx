@@ -18,12 +18,19 @@ const shuffleArray = (array) => {
 function App() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [score, setScore] = useState(0); // Player score
+  const [score, setScore] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [gameStarted, setGameStarted] = useState(false);
   const [readyClicked, setReadyClicked] = useState(false);
 
-  const currentQuestion = questions[currentQuestionIndex];
+  const [shuffledQuestions, setShuffledQuestions] = useState([]);
+
+  const currentQuestion = shuffledQuestions[currentQuestionIndex];
+
+  useEffect(() => {
+    const shuffled = shuffleArray(questions);
+    setShuffledQuestions(shuffled);
+  }, []);
 
   const handleSelectAnswer = (answer) => {
     if (selectedAnswer !== null) return;
@@ -64,16 +71,20 @@ function App() {
         </>
       ) : (
         <>
-          <Highway correctAnswers={correctAnswers} playerScore={score} />{" "}
+          <Highway correctAnswers={correctAnswers} playerScore={score} />
           <div className="content-container">
-            <DisplayCode
-              codeString={currentQuestion.codeSnippet}
-              options={currentQuestion.options}
-            />
-            <AnswerGrid
-              options={currentQuestion.options}
-              onSelectAnswer={handleSelectAnswer}
-            />
+            {currentQuestion && (
+              <>
+                <DisplayCode
+                  codeString={currentQuestion.codeSnippet}
+                  options={currentQuestion.options}
+                />
+                <AnswerGrid
+                  options={currentQuestion.options}
+                  onSelectAnswer={handleSelectAnswer}
+                />
+              </>
+            )}
           </div>
           {selectedAnswer && (
             <div style={{ marginTop: "20px", color: "#ffffff" }}>
