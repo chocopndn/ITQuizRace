@@ -5,14 +5,40 @@ import BlueCar from "../../assets/blue.svg";
 import GreenCar from "../../assets/green.svg";
 
 const Highway = ({ correctAnswers }) => {
+  const highwayWidth = 800;
+  const carWidth = 120;
+  const maxPosition = highwayWidth - carWidth;
+
   const [blueCarPosition, setBlueCarPosition] = useState(0);
   const [greenCarPosition, setGreenCarPosition] = useState(0);
 
+  const steps = 10;
+  const stepSize = maxPosition / steps;
+
+  const [greenCarStep, setGreenCarStep] = useState(0);
+
   useEffect(() => {
-    if (correctAnswers <= 10) {
-      setBlueCarPosition(correctAnswers * 20);
-    }
-  }, [correctAnswers]);
+    const bluePosition = Math.min(correctAnswers * stepSize, maxPosition);
+    setBlueCarPosition(bluePosition);
+  }, [correctAnswers, stepSize, maxPosition]);
+
+  useEffect(() => {
+    const moveGreenCar = () => {
+      const willMove = Math.random() > 0.5;
+
+      if (willMove && greenCarStep < steps) {
+        setGreenCarStep((prevStep) => Math.min(prevStep + 1, steps));
+      }
+    };
+
+    const interval = setInterval(moveGreenCar, 1000);
+
+    return () => clearInterval(interval);
+  }, [greenCarStep, stepSize, maxPosition]);
+
+  useEffect(() => {
+    setGreenCarPosition(greenCarStep * stepSize);
+  }, [greenCarStep, stepSize]);
 
   return (
     <div className="highway">
@@ -29,7 +55,7 @@ const Highway = ({ correctAnswers }) => {
         <img
           src={GreenCar}
           alt="Green Car"
-          className="car"
+          className="car ai-car"
           style={{ left: `${greenCarPosition}px` }}
         />
       </div>

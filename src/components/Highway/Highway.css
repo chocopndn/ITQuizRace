@@ -38,3 +38,7 @@
   position: absolute;
   transition: left 0.3s ease;
 }
+
+.ai-car {
+  left: 20px;
+}
