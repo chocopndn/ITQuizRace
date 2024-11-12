@@ -118,12 +118,8 @@ function App() {
               You selected: {selectedAnswer}
             </div>
           )}
-          <div className="score-text">
-            Score: {score} / {questions.length}
-          </div>
         </>
       )}
-      {winner && <div className="congratulations-message">{winner} Wins!</div>}
     </div>
   );
 }
