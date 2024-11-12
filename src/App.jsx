@@ -22,14 +22,24 @@ function App() {
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [gameStarted, setGameStarted] = useState(false);
   const [readyClicked, setReadyClicked] = useState(false);
-
   const [shuffledQuestions, setShuffledQuestions] = useState([]);
+  const [winner, setWinner] = useState(null);
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
 
   const currentQuestion = shuffledQuestions[currentQuestionIndex];
 
   useEffect(() => {
     const shuffled = shuffleArray(questions);
     setShuffledQuestions(shuffled);
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 1024);
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleSelectAnswer = (answer) => {
@@ -54,6 +64,19 @@ function App() {
     setReadyClicked(true);
   };
 
+  const handleWinner = (winner) => {
+    setWinner(winner);
+  };
+
+  if (isSmallScreen) {
+    return (
+      <div className="small-screen-warning">
+        This game is designed for PC screens only. Please switch to a larger
+        screen.
+      </div>
+    );
+  }
+
   return (
     <div className="app-container">
       {!gameStarted ? (
@@ -71,7 +94,11 @@ function App() {
         </>
       ) : (
         <>
-          <Highway correctAnswers={correctAnswers} playerScore={score} />
+          <Highway
+            correctAnswers={correctAnswers}
+            playerScore={score}
+            onWinner={handleWinner}
+          />
           <div className="content-container">
             {currentQuestion && (
               <>
@@ -87,15 +114,16 @@ function App() {
             )}
           </div>
           {selectedAnswer && (
-            <div style={{ marginTop: "20px", color: "#ffffff" }}>
+            <div className="selected-answer">
               You selected: {selectedAnswer}
             </div>
           )}
-          <div style={{ marginTop: "20px", color: "#ffffff" }}>
+          <div className="score-text">
             Score: {score} / {questions.length}
           </div>
         </>
       )}
+      {winner && <div className="congratulations-message">{winner} Wins!</div>}
     </div>
   );
 }

@@ -4,39 +4,38 @@ import BlueCar from "../../assets/blue.svg";
 import GreenCar from "../../assets/green.svg";
 import Leaderboard from "../Leaderboard/Leaderboard";
 
-const Highway = ({ correctAnswers, playerScore }) => {
+const Highway = ({ correctAnswers, playerScore, onWinner }) => {
   const highwayWidth = 800;
   const carWidth = 120;
   const maxPosition = highwayWidth - carWidth;
 
   const [blueCarPosition, setBlueCarPosition] = useState(0);
   const [greenCarPosition, setGreenCarPosition] = useState(0);
-
   const steps = 10;
   const stepSize = maxPosition / steps;
-
   const [greenCarStep, setGreenCarStep] = useState(0);
 
   useEffect(() => {
     const bluePosition = Math.min(correctAnswers * stepSize, maxPosition);
     setBlueCarPosition(bluePosition);
-  }, [correctAnswers, stepSize, maxPosition]);
+    if (correctAnswers === 10) onWinner("Player");
+  }, [correctAnswers, stepSize, maxPosition, onWinner]);
 
   useEffect(() => {
     const moveGreenCar = () => {
       const willMove = Math.random() > 0.5;
       if (willMove && greenCarStep < steps) {
-        setGreenCarStep((prevStep) => Math.min(prevStep + 1, steps));
+        setGreenCarStep((prevStep) => prevStep + 1);
       }
     };
-
     const interval = setInterval(moveGreenCar, 1000);
     return () => clearInterval(interval);
-  }, [greenCarStep, stepSize, maxPosition]);
+  }, [greenCarStep, steps]);
 
   useEffect(() => {
     setGreenCarPosition(greenCarStep * stepSize);
-  }, [greenCarStep, stepSize]);
+    if (greenCarStep === steps) onWinner("AI");
+  }, [greenCarStep, stepSize, onWinner]);
 
   const aiScore = Math.floor(greenCarPosition / stepSize);
 
@@ -64,7 +63,7 @@ const Highway = ({ correctAnswers, playerScore }) => {
         </div>
       </div>
       <div className="leaderboard-container">
-        <Leaderboard playerScore={playerScore} aiScore={aiScore} />{" "}
+        <Leaderboard playerScore={playerScore} aiScore={aiScore} />
       </div>
     </div>
   );
