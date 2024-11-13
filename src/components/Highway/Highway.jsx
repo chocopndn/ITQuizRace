@@ -22,14 +22,19 @@ const Highway = ({ correctAnswers, playerScore, onWinner }) => {
   }, [correctAnswers, stepSize, maxPosition, onWinner]);
 
   useEffect(() => {
-    const moveGreenCar = () => {
-      const willMove = Math.random() > 0.5;
-      if (willMove && greenCarStep < steps) {
-        setGreenCarStep((prevStep) => prevStep + 1);
-      }
-    };
-    const interval = setInterval(moveGreenCar, 1000);
-    return () => clearInterval(interval);
+    const startMovementDelay = setTimeout(() => {
+      const moveGreenCar = () => {
+        if (greenCarStep < steps) {
+          setGreenCarStep((prevStep) => prevStep + 1);
+        }
+      };
+
+      const interval = setInterval(moveGreenCar, 4000);
+
+      return () => clearInterval(interval);
+    }, 1500);
+
+    return () => clearTimeout(startMovementDelay);
   }, [greenCarStep, steps]);
 
   useEffect(() => {
