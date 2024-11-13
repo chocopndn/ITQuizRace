@@ -24,6 +24,7 @@ function App() {
   const [readyClicked, setReadyClicked] = useState(false);
   const [shuffledQuestions, setShuffledQuestions] = useState([]);
   const [winner, setWinner] = useState(null);
+  const [playerName, setPlayerName] = useState("");
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
 
   const currentQuestion = shuffledQuestions[currentQuestionIndex];
@@ -61,11 +62,15 @@ function App() {
   };
 
   const handleReadyClick = () => {
+    if (playerName.trim() === "") {
+      alert("Please enter your name before starting the game.");
+      return;
+    }
     setReadyClicked(true);
   };
 
   const handleWinner = (winnerName) => {
-    setWinner(winnerName);
+    setWinner(winnerName === "Player" ? playerName : "AI");
   };
 
   if (isSmallScreen) {
@@ -88,6 +93,13 @@ function App() {
           {!readyClicked && (
             <div className="ready-button-container">
               <div>Code Race</div>
+              <input
+                type="text"
+                placeholder="Enter your name"
+                value={playerName}
+                onChange={(e) => setPlayerName(e.target.value)}
+                className="name-input"
+              />
               <button className="ready-button" onClick={handleReadyClick}>
                 Start Game
               </button>
