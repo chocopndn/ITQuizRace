@@ -26,6 +26,9 @@ function App() {
   const [winner, setWinner] = useState(null);
   const [playerName, setPlayerName] = useState("");
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
+  const [isRestarting, setIsRestarting] = useState(false);
+  const [isStopLightActive, setIsStopLightActive] = useState(false);
+  const [onHomeScreen, setOnHomeScreen] = useState(true);
 
   const currentQuestion = shuffledQuestions[currentQuestionIndex];
 
@@ -59,6 +62,7 @@ function App() {
 
   const handleCountdownComplete = () => {
     setGameStarted(true);
+    setIsStopLightActive(false);
   };
 
   const handleReadyClick = () => {
@@ -67,10 +71,40 @@ function App() {
       return;
     }
     setReadyClicked(true);
+    setIsStopLightActive(true);
+    setOnHomeScreen(false);
   };
 
   const handleWinner = (winnerName) => {
     setWinner(winnerName === "Player" ? playerName : "AI");
+  };
+
+  const handleRestart = () => {
+    setIsRestarting(true);
+    setIsStopLightActive(true);
+    setCurrentQuestionIndex(0);
+    setScore(0);
+    setCorrectAnswers(0);
+    setWinner(null);
+    setGameStarted(false);
+  };
+
+  const handleRestartComplete = () => {
+    setIsRestarting(false);
+    setIsStopLightActive(false);
+    setGameStarted(true);
+  };
+
+  const handleHomeClick = () => {
+    setOnHomeScreen(true);
+    setReadyClicked(false);
+    setPlayerName("");
+    setGameStarted(false);
+    setIsStopLightActive(false);
+    setWinner(null);
+    setScore(0);
+    setCorrectAnswers(0);
+    setCurrentQuestionIndex(0);
   };
 
   if (isSmallScreen) {
@@ -83,59 +117,73 @@ function App() {
   }
 
   if (winner) {
-    return <div className="winner-message">{winner} wins the game!</div>;
+    return (
+      <div className="winner-message">
+        {winner} wins the game!
+        <button className="restart-button" onClick={handleRestart}>
+          Restart
+        </button>
+        <button className="home-button" onClick={handleHomeClick}>
+          Go Home
+        </button>
+      </div>
+    );
   }
 
   return (
     <div className="app-container">
-      {!gameStarted ? (
-        <>
-          {!readyClicked && (
-            <div className="ready-button-container">
-              <div>Code Race</div>
-              <input
-                type="text"
-                placeholder="Enter your name"
-                value={playerName}
-                onChange={(e) => setPlayerName(e.target.value)}
-                className="name-input"
-              />
-              <button className="ready-button" onClick={handleReadyClick}>
-                Start Game
-              </button>
-            </div>
-          )}
-          {readyClicked && (
-            <StopLight onCountdownComplete={handleCountdownComplete} />
-          )}
-        </>
+      {onHomeScreen ? (
+        <div className="ready-button-container">
+          <input
+            type="text"
+            placeholder="Enter your name"
+            value={playerName}
+            onChange={(e) => setPlayerName(e.target.value)}
+            className="name-input"
+          />
+          <button className="ready-button" onClick={handleReadyClick}>
+            Start Game
+          </button>
+        </div>
       ) : (
         <>
-          <Highway
-            correctAnswers={correctAnswers}
-            playerScore={score}
-            onWinner={handleWinner}
-          />
-          <div className="content-container">
-            {currentQuestion && (
-              <>
-                <DisplayCode
-                  codeString={currentQuestion.codeSnippet}
-                  options={currentQuestion.options}
-                />
-                <AnswerGrid
-                  options={currentQuestion.options}
-                  onSelectAnswer={handleSelectAnswer}
-                />
-              </>
-            )}
-          </div>
-          {selectedAnswer && (
-            <div className="selected-answer">
-              You selected: {selectedAnswer}
-            </div>
+          {isStopLightActive && !gameStarted && (
+            <StopLight onCountdownComplete={handleCountdownComplete} />
+          )}
+
+          {gameStarted && (
+            <>
+              <Highway
+                correctAnswers={correctAnswers}
+                playerScore={score}
+                onWinner={handleWinner}
+              />
+              <div className="content-container">
+                {currentQuestion && (
+                  <>
+                    <DisplayCode
+                      codeString={currentQuestion.codeSnippet}
+                      options={currentQuestion.options}
+                    />
+                    <AnswerGrid
+                      options={currentQuestion.options}
+                      onSelectAnswer={handleSelectAnswer}
+                    />
+                  </>
+                )}
+              </div>
+              {selectedAnswer && (
+                <div className="selected-answer">
+                  You selected: {selectedAnswer}
+                </div>
+              )}
+            </>
           )}
         </>
+      )}
+
+      {isStopLightActive && !gameStarted && (
+        <StopLight onCountdownComplete={handleRestartComplete} />
       )}
     </div>
   );

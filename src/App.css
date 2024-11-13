@@ -1,3 +1,10 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
 .app-container {
   display: flex;
   flex-direction: column;
@@ -5,10 +12,10 @@
   align-items: center;
   min-height: 100vh;
   text-align: center;
-  background-color: white;
-  color: black;
+  background-color: #81c784;
   padding: 20px;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .ready-button-container {
