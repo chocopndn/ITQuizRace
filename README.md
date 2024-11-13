@@ -88,7 +88,7 @@ This will start the server, and you can access the game at http://localhost:5173
 [Ian Jasper Modesto](https://www.facebook.com/ianjasper.modesto)  
 [Dhanrev Mina](https://www.facebook.com/CHOCODHANDHAN/)
 
-This project is developed under the supervision of Ma'am [Cely Beth Bacud](https://www.facebook.com/celybeth.bacud).
+This project is developed under the supervision of Ma'am [Cely Beth Bacud, MIT](https://www.facebook.com/celybeth.bacud).
 
 ## NOTE:
 
