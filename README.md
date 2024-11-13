@@ -1,6 +1,6 @@
-# CodeRace
+# ITQuiz Race
 
-**CodeRace** is a fun and interactive quiz-based game designed to challenge players' coding knowledge. The game features two players: the human player and an AI opponent. Players answer questions related to programming concepts, and their car moves along a highway based on the number of correct answers they give. The goal is to reach the finish line first!
+**ITQuiz Race** is a fun and interactive quiz-based game designed to challenge players' coding knowledge. The game features two players: the human player and an AI opponent. Players answer questions related to programming concepts, and their car moves along a highway based on the number of correct answers they give. The goal is to reach the finish line first!
 
 ## Features
 
@@ -29,8 +29,8 @@ To run this project locally, you will need to have the following installed:
 Clone the project from GitHub:
 
 ```bash
-git clone https://github.com/chocopndn/CodeRace.git
-cd CodeRace
+git clone https://github.com/chocopndn/ITQuizRace.git
+cd ITQuizRace
 
 ```
 
