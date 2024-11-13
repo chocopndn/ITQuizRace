@@ -18,7 +18,10 @@ const Highway = ({ correctAnswers, playerScore, onWinner }) => {
   useEffect(() => {
     const bluePosition = Math.min(correctAnswers * stepSize, maxPosition);
     setBlueCarPosition(bluePosition);
-    if (correctAnswers === 10) onWinner("Player");
+    if (correctAnswers === 10 && !onWinner.called) {
+      onWinner("Player");
+      onWinner.called = true;
+    }
   }, [correctAnswers, stepSize, maxPosition, onWinner]);
 
   useEffect(() => {
@@ -34,7 +37,10 @@ const Highway = ({ correctAnswers, playerScore, onWinner }) => {
 
   useEffect(() => {
     setGreenCarPosition(greenCarStep * stepSize);
-    if (greenCarStep === steps) onWinner("AI");
+    if (greenCarStep === steps && !onWinner.called) {
+      onWinner("AI");
+      onWinner.called = true;
+    }
   }, [greenCarStep, stepSize, onWinner]);
 
   const aiScore = Math.floor(greenCarPosition / stepSize);

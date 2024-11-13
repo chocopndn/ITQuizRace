@@ -43,7 +43,7 @@ function App() {
   }, []);
 
   const handleSelectAnswer = (answer) => {
-    if (selectedAnswer !== null) return;
+    if (selectedAnswer !== null || winner) return;
 
     setSelectedAnswer(answer);
 
@@ -64,8 +64,8 @@ function App() {
     setReadyClicked(true);
   };
 
-  const handleWinner = (winner) => {
-    setWinner(winner);
+  const handleWinner = (winnerName) => {
+    setWinner(winnerName);
   };
 
   if (isSmallScreen) {
@@ -77,14 +77,19 @@ function App() {
     );
   }
 
+  if (winner) {
+    return <div className="winner-message">{winner} wins the game!</div>;
+  }
+
   return (
     <div className="app-container">
       {!gameStarted ? (
         <>
           {!readyClicked && (
             <div className="ready-button-container">
+              <div>Code Race</div>
               <button className="ready-button" onClick={handleReadyClick}>
-                Ready
+                Start Game
               </button>
             </div>
           )}
