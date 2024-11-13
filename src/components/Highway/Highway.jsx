@@ -15,27 +15,33 @@ const Highway = ({ correctAnswers, playerScore, onWinner }) => {
   const stepSize = maxPosition / steps;
   const [greenCarStep, setGreenCarStep] = useState(0);
 
+  const getRandomDelay = () => {
+    const delays = [1500, 2000, 2500, 3000, 3500, 4000];
+    const randomIndex = Math.floor(Math.random() * delays.length);
+    return delays[randomIndex];
+  };
+
+  const moveGreenCar = () => {
+    if (greenCarStep < steps) {
+      setGreenCarStep((prevStep) => Math.min(prevStep + 1, steps));
+    }
+  };
+
   useEffect(() => {
     const bluePosition = Math.min(correctAnswers * stepSize, maxPosition);
     setBlueCarPosition(bluePosition);
-    if (correctAnswers === 10) onWinner("Player");
+    if (correctAnswers === steps) onWinner("Player");
   }, [correctAnswers, stepSize, maxPosition, onWinner]);
 
   useEffect(() => {
-    const startMovementDelay = setTimeout(() => {
-      const moveGreenCar = () => {
-        if (greenCarStep < steps) {
-          setGreenCarStep((prevStep) => prevStep + 1);
-        }
-      };
+    if (greenCarStep < steps) {
+      const aiMovementInterval = setInterval(() => {
+        moveGreenCar();
+      }, getRandomDelay());
 
-      const interval = setInterval(moveGreenCar, 4000);
-
-      return () => clearInterval(interval);
-    }, 1500);
-
-    return () => clearTimeout(startMovementDelay);
-  }, [greenCarStep, steps]);
+      return () => clearInterval(aiMovementInterval);
+    }
+  }, [greenCarStep]);
 
   useEffect(() => {
     setGreenCarPosition(greenCarStep * stepSize);
