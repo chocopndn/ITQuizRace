@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Highway from "./components/Highway/Highway";
 import DisplayCode from "./components/CodeDisplay/DisplayCode";
 import AnswerGrid from "./components/AnswerGrid/AnswerGrid";
-import questions from "./questions.json";
+import questions from "./assets/json";
 import StopLight from "./components/StopLight/StopLight";
 import "./App.css";
 
