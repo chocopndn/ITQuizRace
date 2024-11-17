@@ -4,7 +4,7 @@ import BlueCar from "../../assets/blue.svg";
 import GreenCar from "../../assets/green.svg";
 import Leaderboard from "../Leaderboard/Leaderboard";
 
-const Highway = ({ correctAnswers, playerScore, onWinner }) => {
+const Highway = ({ correctAnswers, playerScore, onWinner, playerName }) => {
   const highwayWidth = 800;
   const carWidth = 120;
   const maxPosition = highwayWidth - carWidth;
@@ -74,7 +74,11 @@ const Highway = ({ correctAnswers, playerScore, onWinner }) => {
         </div>
       </div>
       <div className="leaderboard-container">
-        <Leaderboard playerScore={playerScore} aiScore={aiScore} />
+        <Leaderboard
+          playerName={playerName}
+          playerScore={playerScore}
+          aiScore={aiScore}
+        />
       </div>
     </div>
   );

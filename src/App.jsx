@@ -161,6 +161,7 @@ function App() {
                 correctAnswers={correctAnswers}
                 playerScore={score}
                 onWinner={handleWinner}
+                playerName={playerName}
               />
               <div className="content-container">
                 {currentQuestion && (
