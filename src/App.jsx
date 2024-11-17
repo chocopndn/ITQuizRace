@@ -119,13 +119,15 @@ function App() {
   if (winner) {
     return (
       <div className="winner-message">
-        {winner} wins the game!
-        <button className="restart-button" onClick={handleRestart}>
-          Restart
-        </button>
-        <button className="home-button" onClick={handleHomeClick}>
-          Go Home
-        </button>
+        <p>{winner} wins the game!</p>
+        <div className="winner-button">
+          <button className="restart-button" onClick={handleRestart}>
+            Restart
+          </button>
+          <button className="home-button" onClick={handleHomeClick}>
+            Go Home
+          </button>
+        </div>
       </div>
     );
   }
@@ -134,12 +136,14 @@ function App() {
     <div className="app-container">
       {onHomeScreen ? (
         <div className="ready-button-container">
+          <h1 className="title">ITQuiz Race</h1>
           <input
             type="text"
             placeholder="Enter your name"
             value={playerName}
             onChange={(e) => setPlayerName(e.target.value)}
             className="name-input"
+            spellcheck="false"
           />
           <button className="ready-button" onClick={handleReadyClick}>
             Start Game

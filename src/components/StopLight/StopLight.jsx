@@ -33,7 +33,10 @@ export default function StopLight({ onCountdownComplete }) {
   }, [onCountdownComplete]);
 
   return (
-    <div className="stoplight-container">
+    <div
+      className="stoplight-container"
+      style={{ width: "150px", height: "300px", backgroundColor: "#444" }}
+    >
       <div className={`light ${light}`}></div>
       <div className="countdown">{countdownText}</div>
     </div>

@@ -2,23 +2,30 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
+  padding: 10px;
 }
 
 .answer-button {
-  background-color: #4caf50;
-  color: white;
+  padding: 15px 30px;
+  font-size: 1rem;
+  background-color: #6272a4;
+  color: #f8f8f2;
   border: none;
-  padding: 15px;
-  text-align: center;
-  border-radius: 5px;
+  border-radius: 8px;
+  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  font-family: "Fira Code", monospace;
+  text-align: center;
 }
 
 .answer-button:hover {
-  background-color: #45a049;
+  background-color: #7088c0;
+  color: #ffffff;
 }
 
 .answer-button:active {
-  background-color: #3e8e41;
+  background-color: #4c5a92;
+  transform: scale(0.98);
+  color: #eaeaea;
 }
