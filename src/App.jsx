@@ -35,6 +35,7 @@ function App() {
   const [aiName, setAiName] = useState("");
   const [showError, setShowError] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [aiStep, setAiStep] = useState(0);
 
   const currentQuestion = shuffledQuestions[currentQuestionIndex];
 
@@ -48,6 +49,7 @@ function App() {
     setReadyClicked(false);
     setIsStopLightActive(false);
     setIsPaused(false);
+    setAiStep(0);
 
     const shuffled = shuffleArray(questions);
     setShuffledQuestions(shuffled);
@@ -76,7 +78,13 @@ function App() {
 
     if (answer === currentQuestion.correctAnswer) {
       setScore((prevScore) => prevScore + 1);
-      setCorrectAnswers((prevCorrect) => prevCorrect + 1);
+      setCorrectAnswers((prevCorrect) => {
+        const updatedCorrectAnswers = prevCorrect + 1;
+        if (updatedCorrectAnswers === 10) {
+          handleWinner(playerName);
+        }
+        return updatedCorrectAnswers;
+      });
     }
 
     setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
@@ -100,7 +108,7 @@ function App() {
   };
 
   const handleWinner = (winnerName) => {
-    setWinner(winnerName === "Player" ? playerName : aiName);
+    setWinner(winnerName);
   };
 
   const handleRestart = () => {
@@ -110,8 +118,8 @@ function App() {
   };
 
   const handleHomeClick = () => {
-    setOnHomeScreen(true);
     initializeGame();
+    setOnHomeScreen(true);
     setPlayerName("");
   };
 
@@ -192,6 +200,9 @@ function App() {
                     onWinner={handleWinner}
                     playerName={playerName}
                     aiName={aiName}
+                    isPaused={isPaused}
+                    aiStep={aiStep}
+                    setAiStep={setAiStep}
                   />
                   <div className="pause-resume">
                     <button

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import "./Highway.css";
 import BlueCar from "../../assets/blue.svg";
 import GreenCar from "../../assets/green.svg";
@@ -10,51 +10,50 @@ const Highway = ({
   onWinner,
   playerName,
   aiName,
+  isPaused,
+  aiStep,
+  setAiStep,
 }) => {
   const highwayWidth = 800;
   const carWidth = 120;
   const maxPosition = highwayWidth - carWidth;
 
-  const [blueCarPosition, setBlueCarPosition] = useState(0);
-  const [greenCarPosition, setGreenCarPosition] = useState(0);
   const steps = 10;
   const stepSize = maxPosition / steps;
-  const [greenCarStep, setGreenCarStep] = useState(0);
+
+  const intervalRef = useRef(null);
 
   const getRandomDelay = () => {
     const delays = [1500, 2000, 2500, 3000, 3500, 4000];
-    const randomIndex = Math.floor(Math.random() * delays.length);
-    return delays[randomIndex];
+    return delays[Math.floor(Math.random() * delays.length)];
   };
 
   const moveGreenCar = () => {
-    if (greenCarStep < steps) {
-      setGreenCarStep((prevStep) => Math.min(prevStep + 1, steps));
-    }
+    setAiStep((prevStep) => {
+      const nextStep = Math.min(prevStep + 1, steps);
+      if (nextStep === steps) {
+        console.log("AI has won the game!");
+        onWinner(aiName);
+      }
+      return nextStep;
+    });
   };
 
   useEffect(() => {
-    const bluePosition = Math.min(correctAnswers * stepSize, maxPosition);
-    setBlueCarPosition(bluePosition);
-    if (correctAnswers === steps) onWinner("Player");
-  }, [correctAnswers, stepSize, maxPosition, onWinner]);
-
-  useEffect(() => {
-    if (greenCarStep < steps) {
-      const aiMovementInterval = setInterval(() => {
+    if (!isPaused && aiStep < steps) {
+      intervalRef.current = setInterval(() => {
         moveGreenCar();
       }, getRandomDelay());
-
-      return () => clearInterval(aiMovementInterval);
+    } else {
+      clearInterval(intervalRef.current);
     }
-  }, [greenCarStep]);
 
-  useEffect(() => {
-    setGreenCarPosition(greenCarStep * stepSize);
-    if (greenCarStep === steps) onWinner("AI");
-  }, [greenCarStep, stepSize, onWinner]);
+    return () => {
+      clearInterval(intervalRef.current);
+    };
+  }, [isPaused, aiStep]);
 
-  const aiScore = Math.floor(greenCarPosition / stepSize);
+  const greenCarPosition = aiStep * stepSize;
 
   return (
     <div className="game-container">
@@ -65,7 +64,7 @@ const Highway = ({
               src={BlueCar}
               alt="Blue Car"
               className="car"
-              style={{ left: `${blueCarPosition}px` }}
+              style={{ left: `${correctAnswers * stepSize}px` }}
             />
           </div>
           <div className="center-line"></div>
@@ -83,7 +82,7 @@ const Highway = ({
         <Scoreboard
           playerName={playerName}
           playerScore={playerScore}
-          aiScore={aiScore}
+          aiScore={aiStep}
           aiName={aiName}
         />
       </div>
