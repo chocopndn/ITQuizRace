@@ -182,7 +182,7 @@ function App() {
                   aiName={aiName}
                 />
                 <div className="pause-resume">
-                  <button className="icon-container">
+                  <button className="icon-container" onClick={handleHomeClick}>
                     <img src={HomeIcon} alt="Home Icon" />
                   </button>
                   <button className="icon-container">
