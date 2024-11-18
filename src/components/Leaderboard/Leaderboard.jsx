@@ -1,15 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./Leaderboard.css";
-import aiNames from "../../assets/json/aiNames.json";
 
-const Leaderboard = ({ playerName, playerScore, aiScore }) => {
-  const [aiName, setAiName] = useState("AI");
-
-  useEffect(() => {
-    const randomIndex = Math.floor(Math.random() * aiNames.length);
-    setAiName(aiNames[randomIndex]);
-  }, []);
-
+const Leaderboard = ({ playerName, playerScore, aiScore, aiName }) => {
   return (
     <div className="leaderboard">
       <h3>Leaderboard</h3>

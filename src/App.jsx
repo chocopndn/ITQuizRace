@@ -3,12 +3,13 @@ import Highway from "./components/Highway/Highway";
 import DisplayCode from "./components/CodeDisplay/DisplayCode";
 import AnswerGrid from "./components/AnswerGrid/AnswerGrid";
 import questions from "./assets/json/questions.json";
+import aiNames from "./assets/json/aiNames.json";
 import StopLight from "./components/StopLight/StopLight";
 import "./App.css";
 
 const shuffleArray = (array) => {
   let shuffledArray = [...array];
-  for (let i = shuffledArray.length - 1; i > 0; i--) {
+  for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
   }
@@ -26,15 +27,31 @@ function App() {
   const [winner, setWinner] = useState(null);
   const [playerName, setPlayerName] = useState("");
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
-  const [isRestarting, setIsRestarting] = useState(false);
   const [isStopLightActive, setIsStopLightActive] = useState(false);
   const [onHomeScreen, setOnHomeScreen] = useState(true);
+  const [aiName, setAiName] = useState("");
 
   const currentQuestion = shuffledQuestions[currentQuestionIndex];
 
-  useEffect(() => {
+  const initializeGame = () => {
+    setCurrentQuestionIndex(0);
+    setSelectedAnswer(null);
+    setScore(0);
+    setCorrectAnswers(0);
+    setWinner(null);
+    setGameStarted(false);
+    setReadyClicked(false);
+    setIsStopLightActive(false);
+
     const shuffled = shuffleArray(questions);
     setShuffledQuestions(shuffled);
+
+    const randomIndex = Math.floor(Math.random() * aiNames.length);
+    setAiName(aiNames[randomIndex]);
+  };
+
+  useEffect(() => {
+    initializeGame();
   }, []);
 
   useEffect(() => {
@@ -52,8 +69,8 @@ function App() {
     setSelectedAnswer(answer);
 
     if (answer === currentQuestion.correctAnswer) {
-      setScore(score + 1);
-      setCorrectAnswers(correctAnswers + 1);
+      setScore((prevScore) => prevScore + 1);
+      setCorrectAnswers((prevCorrect) => prevCorrect + 1);
     }
 
     setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
@@ -76,35 +93,19 @@ function App() {
   };
 
   const handleWinner = (winnerName) => {
-    setWinner(winnerName === "Player" ? playerName : "AI");
+    setWinner(winnerName === "Player" ? playerName : aiName);
   };
 
   const handleRestart = () => {
-    setIsRestarting(true);
+    initializeGame();
     setIsStopLightActive(true);
-    setCurrentQuestionIndex(0);
-    setScore(0);
-    setCorrectAnswers(0);
-    setWinner(null);
-    setGameStarted(false);
-  };
-
-  const handleRestartComplete = () => {
-    setIsRestarting(false);
-    setIsStopLightActive(false);
-    setGameStarted(true);
+    setOnHomeScreen(false);
   };
 
   const handleHomeClick = () => {
     setOnHomeScreen(true);
-    setReadyClicked(false);
+    initializeGame();
     setPlayerName("");
-    setGameStarted(false);
-    setIsStopLightActive(false);
-    setWinner(null);
-    setScore(0);
-    setCorrectAnswers(0);
-    setCurrentQuestionIndex(0);
   };
 
   if (isSmallScreen) {
@@ -143,7 +144,7 @@ function App() {
             value={playerName}
             onChange={(e) => setPlayerName(e.target.value)}
             className="name-input"
-            spellcheck="false"
+            spellCheck="false"
           />
           <button className="ready-button" onClick={handleReadyClick}>
             Start Game
@@ -162,6 +163,7 @@ function App() {
                 playerScore={score}
                 onWinner={handleWinner}
                 playerName={playerName}
+                aiName={aiName}
               />
               <div className="content-container">
                 {currentQuestion && (
@@ -185,10 +187,6 @@ function App() {
             </>
           )}
         </>
-      )}
-
-      {isStopLightActive && !gameStarted && (
-        <StopLight onCountdownComplete={handleRestartComplete} />
       )}
     </div>
   );
