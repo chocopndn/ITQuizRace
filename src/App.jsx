@@ -29,6 +29,7 @@ function App() {
   const [shuffledQuestions, setShuffledQuestions] = useState([]);
   const [winner, setWinner] = useState(null);
   const [playerName, setPlayerName] = useState("");
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
   const [isStopLightActive, setIsStopLightActive] = useState(false);
   const [onHomeScreen, setOnHomeScreen] = useState(true);
   const [aiName, setAiName] = useState("");
@@ -48,7 +49,7 @@ function App() {
     setReadyClicked(false);
     setIsStopLightActive(false);
     setIsPaused(false);
-    setAiStep(0);
+    setAiStep(0); // Reset AI step to 0
 
     const shuffled = shuffleArray(questions);
     setShuffledQuestions(shuffled);
@@ -61,6 +62,14 @@ function App() {
     initializeGame();
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 820);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const handleSelectAnswer = (answer) => {
     if (selectedAnswer !== null || winner || isPaused) return;
 
@@ -68,13 +77,7 @@ function App() {
 
     if (answer === currentQuestion.correctAnswer) {
       setScore((prevScore) => prevScore + 1);
-      setCorrectAnswers((prevCorrect) => {
-        const updatedCorrectAnswers = prevCorrect + 1;
-        if (updatedCorrectAnswers === 10) {
-          handleWinner(playerName);
-        }
-        return updatedCorrectAnswers;
-      });
+      setCorrectAnswers((prevCorrect) => prevCorrect + 1);
     }
 
     setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
@@ -98,7 +101,7 @@ function App() {
   };
 
   const handleWinner = (winnerName) => {
-    setWinner(winnerName);
+    setWinner(winnerName === "Player" ? playerName : aiName);
   };
 
   const handleRestart = () => {
@@ -108,14 +111,23 @@ function App() {
   };
 
   const handleHomeClick = () => {
-    initializeGame();
     setOnHomeScreen(true);
+    initializeGame();
     setPlayerName("");
   };
 
   const handlePauseClick = () => {
     setIsPaused((prev) => !prev);
   };
+
+  if (isSmallScreen) {
+    return (
+      <div className="small-screen-warning">
+        This game is designed for PC screens only. Please switch to a larger
+        screen.
+      </div>
+    );
+  }
 
   if (winner) {
     return (
