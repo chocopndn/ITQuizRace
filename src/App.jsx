@@ -7,6 +7,9 @@ import aiNames from "./assets/json/aiNames.json";
 import StopLight from "./components/StopLight/StopLight";
 import "./App.css";
 
+import HomeIcon from "./assets/icons/home.svg";
+import PauseIcon from "./assets/icons/pause.svg";
+
 const shuffleArray = (array) => {
   let shuffledArray = [...array];
   for (let i = array.length - 1; i > 0; i--) {
@@ -170,13 +173,23 @@ function App() {
 
           {gameStarted && (
             <>
-              <Highway
-                correctAnswers={correctAnswers}
-                playerScore={score}
-                onWinner={handleWinner}
-                playerName={playerName}
-                aiName={aiName}
-              />
+              <div className="game-area">
+                <Highway
+                  correctAnswers={correctAnswers}
+                  playerScore={score}
+                  onWinner={handleWinner}
+                  playerName={playerName}
+                  aiName={aiName}
+                />
+                <div className="pause-resume">
+                  <button className="icon-container">
+                    <img src={HomeIcon} alt="Home Icon" />
+                  </button>
+                  <button className="icon-container">
+                    <img src={PauseIcon} alt="Pause Icon" />
+                  </button>
+                </div>
+              </div>
               <div className="content-container">
                 {currentQuestion && (
                   <>
