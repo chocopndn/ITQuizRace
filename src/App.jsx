@@ -30,6 +30,7 @@ function App() {
   const [isStopLightActive, setIsStopLightActive] = useState(false);
   const [onHomeScreen, setOnHomeScreen] = useState(true);
   const [aiName, setAiName] = useState("");
+  const [showError, setShowError] = useState(false);
 
   const currentQuestion = shuffledQuestions[currentQuestionIndex];
 
@@ -84,9 +85,10 @@ function App() {
 
   const handleReadyClick = () => {
     if (playerName.trim() === "") {
-      alert("Please enter your name before starting the game.");
+      setShowError(true);
       return;
     }
+    setShowError(false);
     setReadyClicked(true);
     setIsStopLightActive(true);
     setOnHomeScreen(false);
@@ -138,17 +140,27 @@ function App() {
       {onHomeScreen ? (
         <div className="ready-button-container">
           <h1 className="title">ITQuiz Race</h1>
-          <input
-            type="text"
-            placeholder="Enter your name"
-            value={playerName}
-            onChange={(e) => setPlayerName(e.target.value)}
-            className="name-input"
-            spellCheck="false"
-          />
-          <button className="ready-button" onClick={handleReadyClick}>
-            Start Game
-          </button>
+          <div className="input-container">
+            <div className="input-wrapper">
+              <input
+                type="text"
+                placeholder="Enter your name"
+                value={playerName}
+                onChange={(e) => {
+                  setPlayerName(e.target.value);
+                  if (showError) setShowError(false);
+                }}
+                className={`name-input ${showError ? "input-error" : ""}`}
+                spellCheck="false"
+              />
+              <button className="ready-button" onClick={handleReadyClick}>
+                Start Game
+              </button>
+            </div>
+            {showError && (
+              <span className="error-message">Name is required!</span>
+            )}
+          </div>
         </div>
       ) : (
         <>
