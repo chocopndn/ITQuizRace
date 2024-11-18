@@ -1,10 +1,10 @@
 import React from "react";
-import "./Leaderboard.css";
+import "./Scoreboard.css";
 
-const Leaderboard = ({ playerName, playerScore, aiScore, aiName }) => {
+const Scoreboard = ({ playerName, playerScore, aiScore, aiName }) => {
   return (
-    <div className="leaderboard">
-      <h3>Leaderboard</h3>
+    <div className="scoreboard">
+      <h3>Scoreboard</h3>
       <div className="score-container">
         <div className="score">
           <span className="label">{playerName || "Player"}:</span>
@@ -19,4 +19,4 @@ const Leaderboard = ({ playerName, playerScore, aiScore, aiName }) => {
   );
 };
 
-export default Leaderboard;
+export default Scoreboard;

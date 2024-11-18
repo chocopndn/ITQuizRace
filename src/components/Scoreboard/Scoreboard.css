@@ -1,4 +1,4 @@
-.leaderboard {
+.scoreboard {
   border-radius: 10px;
   width: 100%;
   height: 200px;
@@ -12,7 +12,7 @@
   box-sizing: border-box;
 }
 
-.leaderboard h3 {
+.scoreboard h3 {
   color: #ff79c6;
   margin-bottom: 15px;
   font-size: 1.7rem;

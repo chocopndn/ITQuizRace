@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Highway.css";
 import BlueCar from "../../assets/blue.svg";
 import GreenCar from "../../assets/green.svg";
-import Leaderboard from "../Leaderboard/Leaderboard";
+import Scoreboard from "../Scoreboard/Scoreboard";
 
 const Highway = ({
   correctAnswers,
@@ -79,8 +79,8 @@ const Highway = ({
           </div>
         </div>
       </div>
-      <div className="leaderboard-container">
-        <Leaderboard
+      <div className="scoreboard-container">
+        <Scoreboard
           playerName={playerName}
           playerScore={playerScore}
           aiScore={aiScore}
