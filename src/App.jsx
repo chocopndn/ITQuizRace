@@ -34,6 +34,7 @@ function App() {
   const [onHomeScreen, setOnHomeScreen] = useState(true);
   const [aiName, setAiName] = useState("");
   const [showError, setShowError] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
 
   const currentQuestion = shuffledQuestions[currentQuestionIndex];
 
@@ -46,6 +47,7 @@ function App() {
     setGameStarted(false);
     setReadyClicked(false);
     setIsStopLightActive(false);
+    setIsPaused(false);
 
     const shuffled = shuffleArray(questions);
     setShuffledQuestions(shuffled);
@@ -68,7 +70,7 @@ function App() {
   }, []);
 
   const handleSelectAnswer = (answer) => {
-    if (selectedAnswer !== null || winner) return;
+    if (selectedAnswer !== null || winner || isPaused) return;
 
     setSelectedAnswer(answer);
 
@@ -111,6 +113,10 @@ function App() {
     setOnHomeScreen(true);
     initializeGame();
     setPlayerName("");
+  };
+
+  const handlePauseClick = () => {
+    setIsPaused((prev) => !prev);
   };
 
   if (isSmallScreen) {
@@ -167,49 +173,62 @@ function App() {
         </div>
       ) : (
         <>
-          {isStopLightActive && !gameStarted && (
+          {isStopLightActive && !gameStarted ? (
             <StopLight onCountdownComplete={handleCountdownComplete} />
-          )}
-
-          {gameStarted && (
-            <>
-              <div className="game-area">
-                <Highway
-                  correctAnswers={correctAnswers}
-                  playerScore={score}
-                  onWinner={handleWinner}
-                  playerName={playerName}
-                  aiName={aiName}
-                />
-                <div className="pause-resume">
-                  <button className="icon-container" onClick={handleHomeClick}>
-                    <img src={HomeIcon} alt="Home Icon" />
-                  </button>
-                  <button className="icon-container">
-                    <img src={PauseIcon} alt="Pause Icon" />
-                  </button>
+          ) : isPaused ? (
+            <div className="pause-overlay">
+              <h2>Game Paused</h2>
+              <button onClick={handlePauseClick} className="resume-button">
+                Resume
+              </button>
+            </div>
+          ) : (
+            gameStarted && (
+              <>
+                <div className="game-area">
+                  <Highway
+                    correctAnswers={correctAnswers}
+                    playerScore={score}
+                    onWinner={handleWinner}
+                    playerName={playerName}
+                    aiName={aiName}
+                  />
+                  <div className="pause-resume">
+                    <button
+                      className="icon-container"
+                      onClick={handleHomeClick}
+                    >
+                      <img src={HomeIcon} alt="Home Icon" />
+                    </button>
+                    <button
+                      className="icon-container"
+                      onClick={handlePauseClick}
+                    >
+                      <img src={PauseIcon} alt="Pause Icon" />
+                    </button>
+                  </div>
                 </div>
-              </div>
-              <div className="content-container">
-                {currentQuestion && (
-                  <>
-                    <DisplayCode
-                      codeString={currentQuestion.codeSnippet}
-                      options={currentQuestion.options}
-                    />
-                    <AnswerGrid
-                      options={currentQuestion.options}
-                      onSelectAnswer={handleSelectAnswer}
-                    />
-                  </>
+                <div className="content-container">
+                  {currentQuestion && (
+                    <>
+                      <DisplayCode
+                        codeString={currentQuestion.codeSnippet}
+                        options={currentQuestion.options}
+                      />
+                      <AnswerGrid
+                        options={currentQuestion.options}
+                        onSelectAnswer={handleSelectAnswer}
+                      />
+                    </>
+                  )}
+                </div>
+                {selectedAnswer && (
+                  <div className="selected-answer">
+                    You selected: {selectedAnswer}
+                  </div>
                 )}
-              </div>
-              {selectedAnswer && (
-                <div className="selected-answer">
-                  You selected: {selectedAnswer}
-                </div>
-              )}
-            </>
+              </>
+            )
           )}
         </>
       )}

@@ -255,3 +255,50 @@ input:invalid {
   transform: scale(0.95);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
+
+.resume-button {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  background-color: #6272a4;
+  color: #f8f8f2;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+  font-family: "Fira Code", monospace;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.resume-button:hover {
+  background-color: #7088c0;
+}
+
+.resume-button:active {
+  background-color: #4c5a92;
+  transform: scale(0.98);
+}
+
+.pause-overlay h2 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #bd93f9;
+  text-shadow: 0 0 8px #bd93f9, 0 0 15px rgba(189, 147, 249, 0.8),
+    0 0 30px rgba(189, 147, 249, 0.6); /* Subtle glow effect */
+  margin: 0;
+  text-align: center;
+  font-family: "Fira Code", monospace;
+  letter-spacing: 1px;
+  animation: subtle-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes subtle-pulse {
+  0%,
+  100% {
+    text-shadow: 0 0 8px #bd93f9, 0 0 15px rgba(189, 147, 249, 0.8),
+      0 0 30px rgba(189, 147, 249, 0.6);
+  }
+  50% {
+    text-shadow: 0 0 12px #d6afff, 0 0 20px rgba(189, 147, 249, 0.9),
+      0 0 40px rgba(189, 147, 249, 0.8);
+  }
+}
