@@ -14,14 +14,16 @@ const Highway = ({
   aiStep,
   setAiStep,
 }) => {
-  const highwayWidth = 800;
-  const carWidth = 120;
-  const maxPosition = highwayWidth - carWidth;
+  const highwayRef = useRef(null);
+  const intervalRef = useRef(null);
 
   const steps = 10;
-  const stepSize = maxPosition / steps;
 
-  const intervalRef = useRef(null);
+  const getStepSize = () => {
+    const highwayWidth = highwayRef.current?.offsetWidth || 800;
+    const carWidth = 120;
+    return (highwayWidth - carWidth) / steps;
+  };
 
   const getRandomDelay = () => {
     const delays = [1500, 2000, 2500, 3000, 3500, 4000];
@@ -53,18 +55,19 @@ const Highway = ({
     };
   }, [isPaused, aiStep]);
 
-  const greenCarPosition = aiStep * stepSize;
+  const greenCarPosition = aiStep * getStepSize();
+  const blueCarPosition = correctAnswers * getStepSize();
 
   return (
     <div className="game-container">
-      <div className="highway-container">
+      <div className="highway-container" ref={highwayRef}>
         <div className="highway">
           <div className="lane top">
             <img
               src={BlueCar}
               alt="Blue Car"
               className="car"
-              style={{ left: `${correctAnswers * stepSize}px` }}
+              style={{ left: `${blueCarPosition}px` }}
             />
           </div>
           <div className="center-line"></div>
