@@ -35,6 +35,7 @@ function App() {
   const [aiName, setAiName] = useState("");
   const [showError, setShowError] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [isResuming, setIsResuming] = useState(false);
   const [aiStep, setAiStep] = useState(0);
 
   const currentQuestion = shuffledQuestions[currentQuestionIndex];
@@ -49,7 +50,7 @@ function App() {
     setReadyClicked(false);
     setIsStopLightActive(false);
     setIsPaused(false);
-    setAiStep(0); // Reset AI step to 0
+    setAiStep(0);
 
     const shuffled = shuffleArray(questions);
     setShuffledQuestions(shuffled);
@@ -64,9 +65,10 @@ function App() {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsSmallScreen(window.innerWidth <= 820);
+      setIsSmallScreen(window.innerWidth <= 1024);
     };
     window.addEventListener("resize", handleResize);
+
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -77,7 +79,13 @@ function App() {
 
     if (answer === currentQuestion.correctAnswer) {
       setScore((prevScore) => prevScore + 1);
-      setCorrectAnswers((prevCorrect) => prevCorrect + 1);
+      setCorrectAnswers((prevCorrect) => {
+        const updatedCorrectAnswers = prevCorrect + 1;
+        if (updatedCorrectAnswers === 10) {
+          handleWinner("Player");
+        }
+        return updatedCorrectAnswers;
+      });
     }
 
     setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
@@ -99,9 +107,12 @@ function App() {
     setIsStopLightActive(true);
     setOnHomeScreen(false);
   };
-
   const handleWinner = (winnerName) => {
-    setWinner(winnerName === "Player" ? playerName : aiName);
+    if (winnerName === "Player") {
+      setWinner(playerName);
+    } else if (winnerName === "AI") {
+      setWinner(aiName);
+    }
   };
 
   const handleRestart = () => {
@@ -117,6 +128,9 @@ function App() {
   };
 
   const handlePauseClick = () => {
+    if (isPaused) {
+      setIsResuming(true);
+    }
     setIsPaused((prev) => !prev);
   };
 
@@ -196,7 +210,10 @@ function App() {
                     isPaused={isPaused}
                     aiStep={aiStep}
                     setAiStep={setAiStep}
+                    isResuming={isResuming}
+                    setIsResuming={setIsResuming}
                   />
+
                   <div className="pause-resume">
                     <button
                       className="icon-container"

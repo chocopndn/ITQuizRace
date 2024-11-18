@@ -13,6 +13,8 @@ const Highway = ({
   isPaused,
   aiStep,
   setAiStep,
+  isResuming,
+  setIsResuming,
 }) => {
   const highwayRef = useRef(null);
   const intervalRef = useRef(null);
@@ -25,26 +27,21 @@ const Highway = ({
     return (highwayWidth - carWidth) / steps;
   };
 
-  const getRandomDelay = () => {
-    const delays = [1500, 2000, 2500, 3000, 3500, 4000];
-    return delays[Math.floor(Math.random() * delays.length)];
-  };
-
   const moveGreenCar = () => {
     setAiStep((prevStep) => {
       const nextStep = Math.min(prevStep + 1, steps);
       if (nextStep === steps) {
-        onWinner(aiName);
+        onWinner("AI");
       }
       return nextStep;
     });
   };
 
   useEffect(() => {
-    if (!isPaused && aiStep < steps) {
+    if (!isPaused && !isResuming && aiStep < steps) {
       intervalRef.current = setInterval(() => {
         moveGreenCar();
-      }, getRandomDelay());
+      }, 2000);
     } else {
       clearInterval(intervalRef.current);
     }
@@ -52,7 +49,13 @@ const Highway = ({
     return () => {
       clearInterval(intervalRef.current);
     };
-  }, [isPaused, aiStep]);
+  }, [isPaused, isResuming, aiStep]);
+
+  useEffect(() => {
+    if (isResuming) {
+      setTimeout(() => setIsResuming(false), 300);
+    }
+  }, [isResuming]);
 
   const greenCarPosition = aiStep * getStepSize();
   const blueCarPosition = correctAnswers * getStepSize();
@@ -66,7 +69,10 @@ const Highway = ({
               src={BlueCar}
               alt="Blue Car"
               className="car"
-              style={{ left: `${blueCarPosition}px` }}
+              style={{
+                left: `${blueCarPosition}px`,
+                visibility: isResuming ? "hidden" : "visible",
+              }}
             />
           </div>
           <div className="center-line"></div>
@@ -75,7 +81,10 @@ const Highway = ({
               src={GreenCar}
               alt="Green Car"
               className="car ai-car"
-              style={{ left: `${greenCarPosition}px` }}
+              style={{
+                left: `${greenCarPosition}px`,
+                visibility: isResuming ? "hidden" : "visible",
+              }}
             />
           </div>
         </div>

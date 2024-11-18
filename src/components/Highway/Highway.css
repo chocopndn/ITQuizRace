@@ -10,7 +10,9 @@
 }
 
 .highway-container {
-  width: 70%;
+  position: relative;
+  width: 100%;
+  height: auto;
 }
 
 .highway {
