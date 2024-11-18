@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Highway from "./components/Highway/Highway";
-import DisplayCode from "./components/CodeDisplay/DisplayCode";
+import DisplayCode from "./components/DisplayCode/DisplayCode";
 import AnswerGrid from "./components/AnswerGrid/AnswerGrid";
 import questions from "./assets/json/questions.json";
 import aiNames from "./assets/json/aiNames.json";
@@ -29,7 +29,6 @@ function App() {
   const [shuffledQuestions, setShuffledQuestions] = useState([]);
   const [winner, setWinner] = useState(null);
   const [playerName, setPlayerName] = useState("");
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
   const [isStopLightActive, setIsStopLightActive] = useState(false);
   const [onHomeScreen, setOnHomeScreen] = useState(true);
   const [aiName, setAiName] = useState("");
@@ -60,15 +59,6 @@ function App() {
 
   useEffect(() => {
     initializeGame();
-  }, []);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsSmallScreen(window.innerWidth <= 1024);
-    };
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleSelectAnswer = (answer) => {
@@ -126,15 +116,6 @@ function App() {
   const handlePauseClick = () => {
     setIsPaused((prev) => !prev);
   };
-
-  if (isSmallScreen) {
-    return (
-      <div className="small-screen-warning">
-        This game is designed for PC screens only. Please switch to a larger
-        screen.
-      </div>
-    );
-  }
 
   if (winner) {
     return (
