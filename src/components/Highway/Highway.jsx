@@ -22,9 +22,7 @@ const Highway = ({
   const getStepSize = () => {
     const highwayWidth = highwayRef.current?.offsetWidth || 800;
     const carWidth = 120;
-    const stepSize = (highwayWidth - carWidth) / steps;
-    console.log(`Highway Width: ${highwayWidth}, Step Size: ${stepSize}`);
-    return stepSize;
+    return (highwayWidth - carWidth) / steps;
   };
 
   const getRandomDelay = () => {
@@ -36,22 +34,18 @@ const Highway = ({
     setAiStep((prevStep) => {
       const nextStep = Math.min(prevStep + 1, steps);
       if (nextStep === steps) {
-        console.log("AI has won the game!");
         onWinner(aiName);
       }
-      console.log(`AI Step Updated: ${nextStep}`);
       return nextStep;
     });
   };
 
   useEffect(() => {
     if (!isPaused && aiStep < steps) {
-      console.log("Starting AI movement...");
       intervalRef.current = setInterval(() => {
         moveGreenCar();
       }, getRandomDelay());
     } else {
-      console.log("Clearing AI movement...");
       clearInterval(intervalRef.current);
     }
 
@@ -59,14 +53,6 @@ const Highway = ({
       clearInterval(intervalRef.current);
     };
   }, [isPaused, aiStep]);
-
-  useEffect(() => {
-    if (highwayRef.current) {
-      console.log(
-        `Highway dimensions: Width=${highwayRef.current.offsetWidth}`
-      );
-    }
-  }, [highwayRef.current]);
 
   const greenCarPosition = aiStep * getStepSize();
   const blueCarPosition = correctAnswers * getStepSize();
