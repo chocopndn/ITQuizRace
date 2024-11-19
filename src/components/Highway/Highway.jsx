@@ -27,6 +27,14 @@ const Highway = ({
     return (highwayWidth - carWidth) / steps;
   };
 
+  const getRandomDelay = () => {
+    const delays = [
+      10000, 10500, 11000, 11500, 12000, 12500, 13000, 13500, 14000, 14500,
+      15000,
+    ];
+    return delays[Math.floor(Math.random() * delays.length)];
+  };
+
   const moveGreenCar = () => {
     setAiStep((prevStep) => {
       const nextStep = Math.min(prevStep + 1, steps);
@@ -41,7 +49,7 @@ const Highway = ({
     if (!isPaused && !isResuming && aiStep < steps) {
       intervalRef.current = setInterval(() => {
         moveGreenCar();
-      }, 2000);
+      }, getRandomDelay());
     } else {
       clearInterval(intervalRef.current);
     }
