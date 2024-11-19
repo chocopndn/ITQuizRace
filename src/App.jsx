@@ -9,6 +9,7 @@ import "./App.css";
 
 import HomeIcon from "./assets/icons/home.svg";
 import PauseIcon from "./assets/icons/pause.svg";
+import RestartIcon from "./assets/icons/restart.svg";
 
 const shuffleArray = (array) => {
   let shuffledArray = [...array];
@@ -107,6 +108,7 @@ function App() {
     setIsStopLightActive(true);
     setOnHomeScreen(false);
   };
+
   const handleWinner = (winnerName) => {
     if (winnerName === "Player") {
       setWinner(playerName);
@@ -119,6 +121,22 @@ function App() {
     initializeGame();
     setIsStopLightActive(true);
     setOnHomeScreen(false);
+  };
+
+  const handleRestartWithSameAI = () => {
+    setCurrentQuestionIndex(0);
+    setSelectedAnswer(null);
+    setScore(0);
+    setCorrectAnswers(0);
+    setWinner(null);
+    setGameStarted(false);
+    setReadyClicked(true);
+    setIsStopLightActive(true);
+    setIsPaused(false);
+    setAiStep(0);
+
+    const shuffled = shuffleArray(questions);
+    setShuffledQuestions(shuffled);
   };
 
   const handleHomeClick = () => {
@@ -220,6 +238,12 @@ function App() {
                       onClick={handleHomeClick}
                     >
                       <img src={HomeIcon} alt="Home Icon" />
+                    </button>
+                    <button
+                      className="icon-container"
+                      onClick={handleRestartWithSameAI}
+                    >
+                      <img src={RestartIcon} alt="Restart Icon" />
                     </button>
                     <button
                       className="icon-container"
