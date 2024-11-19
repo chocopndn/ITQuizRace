@@ -1,199 +1,132 @@
 [
   {
-    "question": "What does the following code do?",
-    "codeSnippet": "void greet() {\n  std::cout << 'Hello, world!' << std::endl;\n}",
+    "question": "What does the following Python code do?",
+    "codeSnippet": "print('Hello, IT World!')",
     "options": [
-      "Prints 'Hello, world!' to the console",
-      "Defines a function named 'greet'",
+      "Prints a greeting to the IT World",
+      "Defines a function",
       "Throws an error",
       "None of the above"
     ],
-    "correctAnswer": "Prints 'Hello, world!' to the console"
+    "correctAnswer": "Prints a greeting to the IT World"
   },
   {
-    "question": "What is the output of this function?",
-    "codeSnippet": "int add(int a, int b) {\n  return a + b;\n}\nstd::cout << add(2, 3);\n",
-    "options": ["5", "23", "undefined", "NaN"],
-    "correctAnswer": "5"
+    "question": "Which data structure is used to store key-value pairs in Python?",
+    "codeSnippet": "",
+    "options": ["List", "Dictionary", "Tuple", "Set"],
+    "correctAnswer": "Dictionary"
   },
   {
-    "question": "Which of the following is correct syntax for a C++ function?",
-    "codeSnippet": "void myFunc() {\n  std::cout << 'Hello';\n}",
+    "question": "What is the time complexity of searching in a balanced binary search tree?",
+    "codeSnippet": "",
+    "options": ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
+    "correctAnswer": "O(log n)"
+  },
+  {
+    "question": "What is the output of the following SQL query?",
+    "codeSnippet": "SELECT COUNT(*) FROM employees WHERE department = 'IT';",
     "options": [
-      "void myFunc() { }",
-      "function myFunc() { }",
-      "myFunc function() { }",
+      "The total number of employees",
+      "The number of employees in the IT department",
+      "An error due to missing columns",
       "None of the above"
     ],
-    "correctAnswer": "void myFunc() { }"
+    "correctAnswer": "The number of employees in the IT department"
   },
   {
-    "question": "What will be printed to the console for this code?",
-    "codeSnippet": "int x = 10;\nif (x > 5) {\n  std::cout << 'Greater';\n} else {\n  std::cout << 'Smaller';\n}",
-    "options": ["'Greater'", "'Smaller'", "'Error'", "'undefined'"],
-    "correctAnswer": "'Greater'"
-  },
-  {
-    "question": "What does 'auto' do in C++?",
-    "codeSnippet": "auto x = 10;\nstd::cout << x;\n",
-    "options": [
-      "Automatically determines the type of a variable",
-      "Declares a constant variable",
-      "Declares a function",
-      "None of the above"
-    ],
-    "correctAnswer": "Automatically determines the type of a variable"
-  },
-  {
-    "question": "What will be the result of this code?",
-    "codeSnippet": "std::vector<int> arr = {1, 2, 3};\narr.push_back(4);\nstd::cout << arr[3];",
-    "options": ["4", "3", "1", "undefined"],
-    "correctAnswer": "4"
-  },
-  {
-    "question": "How can you remove an element from the end of a vector in C++?",
-    "codeSnippet": "std::vector<int> arr = {1, 2, 3, 4};\narr.pop_back();\nstd::cout << arr.size();",
-    "options": [
-      "arr.pop_back()",
-      "arr.remove()",
-      "arr.shift()",
-      "None of the above"
-    ],
-    "correctAnswer": "arr.pop_back()"
-  },
-  {
-    "question": "What does 'this' refer to in the following code?",
-    "codeSnippet": "class Person {\npublic:\n  std::string name;\n  void greet() {\n    std::cout << this->name;\n  }\n};\nPerson p;\np.greet();",
-    "options": [
-      "The instance of the 'Person' class",
-      "The global object",
-      "The 'name' variable",
-      "None of the above"
-    ],
-    "correctAnswer": "The instance of the 'Person' class"
-  },
-  {
-    "question": "Which of the following is the correct way to declare a pointer in C++?",
-    "codeSnippet": "int* ptr;\nptr = &x;\n",
-    "options": [
-      "int* ptr;",
-      "int ptr*;",
-      "pointer int* ptr;",
-      "None of the above"
-    ],
-    "correctAnswer": "int* ptr;"
-  },
-  {
-    "question": "What will the following code print?",
-    "codeSnippet": "std::cout << (5 == 5) ? 'True' : 'False';",
-    "options": ["True", "False", "Error", "undefined"],
-    "correctAnswer": "True"
-  },
-  {
-    "question": "Which of the following is used to handle exceptions in C++?",
-    "codeSnippet": "try {\n  int x = 5 / 0;\n} catch (const std::exception& e) {\n  std::cout << e.what();\n}",
-    "options": ["try...catch", "throw", "finally", "All of the above"],
-    "correctAnswer": "try...catch"
-  },
-  {
-    "question": "What is the purpose of a 'constructor' in C++?",
-    "codeSnippet": "class Person {\npublic:\n  Person() { std::cout << 'Constructor called'; }\n};\nPerson p;",
-    "options": [
-      "To initialize an object when it is created",
-      "To delete an object when it is destroyed",
-      "To call a function at the start of a program",
-      "None of the above"
-    ],
-    "correctAnswer": "To initialize an object when it is created"
-  },
-  {
-    "question": "Which of the following can be used to create an object in C++?",
-    "codeSnippet": "Person p;\n",
-    "options": [
-      "Object literal",
-      "Class constructor",
-      "Factory function",
-      "All of the above"
-    ],
-    "correctAnswer": "Class constructor"
-  },
-  {
-    "question": "Which method is used to add an element to the beginning of a vector?",
-    "codeSnippet": "std::vector<int> arr = {1, 2, 3};\narr.insert(arr.begin(), 0);\nstd::cout << arr[0];",
-    "options": [
-      "arr.insert()",
-      "arr.push_back()",
-      "arr.add()",
-      "arr.unshift()"
-    ],
-    "correctAnswer": "arr.insert()"
-  },
-  {
-    "question": "What is the purpose of the 'virtual' keyword in C++?",
-    "codeSnippet": "class Base {\npublic:\n  virtual void speak() {\n    std::cout << 'Base speaking';\n  }\n};\nclass Derived : public Base {\npublic:\n  void speak() override {\n    std::cout << 'Derived speaking';\n  }\n};",
-    "options": [
-      "To allow function overriding in derived classes",
-      "To declare a constant function",
-      "To declare a constructor",
-      "None of the above"
-    ],
-    "correctAnswer": "To allow function overriding in derived classes"
-  },
-  {
-    "question": "What does the 'new' keyword do in C++?",
-    "codeSnippet": "int* ptr = new int(10);",
-    "options": [
-      "Allocates memory for an object or variable",
-      "Deallocates memory for an object or variable",
-      "Defines a new function",
-      "None of the above"
-    ],
-    "correctAnswer": "Allocates memory for an object or variable"
-  },
-  {
-    "question": "What does the following code return?",
-    "codeSnippet": "int test() {\n  return sizeof(int);\n}",
-    "options": ["4", "8", "2", "undefined"],
-    "correctAnswer": "4"
-  },
-  {
-    "question": "Which of the following data types are used in C++ for storing numbers?",
+    "question": "What is the main purpose of a firewall?",
     "codeSnippet": "",
     "options": [
-      "int, float, double",
-      "char, string, int",
-      "bool, int, double",
-      "All of the above"
+      "To block unauthorized access to or from a network",
+      "To store website data",
+      "To encrypt network traffic",
+      "To create a backup of files"
     ],
-    "correctAnswer": "int, float, double"
+    "correctAnswer": "To block unauthorized access to or from a network"
   },
   {
-    "question": "Which of the following is NOT a primitive data type in C++?",
-    "codeSnippet": "",
-    "options": ["std::string", "int", "double", "bool"],
-    "correctAnswer": "std::string"
-  },
-  {
-    "question": "What is the result of the following code?",
-    "codeSnippet": "std::string s = 'hello';\ns[0] = 'H';\nstd::cout << s;",
-    "options": ["'Hello'", "'hello'", "'H'"],
-    "correctAnswer": "'Hello'"
-  },
-  {
-    "question": "Which of the following is the correct syntax for a while loop in C++?",
-    "codeSnippet": "int i = 0;\nwhile (i < 5) {\n  std::cout << i << '\\n';\n  i++;\n}",
+    "question": "What does the following JavaScript code do?",
+    "codeSnippet": "const numbers = [1, 2, 3, 4];\nconst doubled = numbers.map(num => num * 2);\nconsole.log(doubled);",
     "options": [
-      "while (i < 5) {...}",
-      "for (i = 0; i < 5; i++) {...}",
-      "repeat (i < 5) {...}",
+      "Doubles each number in the array and prints [2, 4, 6, 8]",
+      "Adds two to each number and prints [3, 4, 5, 6]",
+      "Throws a syntax error",
       "None of the above"
     ],
-    "correctAnswer": "while (i < 5) {...}"
+    "correctAnswer": "Doubles each number in the array and prints [2, 4, 6, 8]"
   },
   {
-    "question": "Which operator is used to access members of a class in C++?",
-    "codeSnippet": "class Person {\npublic:\n  std::string name;\n};\nPerson p;\np.name = 'Alice';",
-    "options": [".", "->", "&", "None of the above"],
-    "correctAnswer": "."
+    "question": "What does HTTP stand for?",
+    "codeSnippet": "",
+    "options": [
+      "HyperText Transmission Protocol",
+      "HyperText Transfer Protocol",
+      "HyperText Transport Protocol",
+      "HyperText Transaction Protocol"
+    ],
+    "correctAnswer": "HyperText Transfer Protocol"
+  },
+  {
+    "question": "Which of the following is a relational database management system?",
+    "codeSnippet": "",
+    "options": ["MySQL", "MongoDB", "Redis", "Firebase"],
+    "correctAnswer": "MySQL"
+  },
+  {
+    "question": "Which language is primarily used for data analysis and visualization?",
+    "codeSnippet": "",
+    "options": ["JavaScript", "Python", "C++", "Assembly"],
+    "correctAnswer": "Python"
+  },
+  {
+    "question": "What does the following shell command do?",
+    "codeSnippet": "ls -l /home/user",
+    "options": [
+      "Lists detailed information about files and directories in /home/user",
+      "Deletes all files in /home/user",
+      "Changes the current directory to /home/user",
+      "None of the above"
+    ],
+    "correctAnswer": "Lists detailed information about files and directories in /home/user"
+  },
+  {
+    "question": "Which of the following is NOT a programming language?",
+    "codeSnippet": "",
+    "options": ["Python", "HTML", "Java", "C#"],
+    "correctAnswer": "HTML"
+  },
+  {
+    "question": "What is the purpose of an API?",
+    "codeSnippet": "",
+    "options": [
+      "To allow communication between software applications",
+      "To store user data",
+      "To secure a website",
+      "To create a database"
+    ],
+    "correctAnswer": "To allow communication between software applications"
+  },
+  {
+    "question": "Which of the following is an example of cloud storage?",
+    "codeSnippet": "",
+    "options": ["Google Drive", "RAM", "Hard Disk", "CPU Cache"],
+    "correctAnswer": "Google Drive"
+  },
+  {
+    "question": "What will the following Python code output?",
+    "codeSnippet": "for i in range(3):\n  print(i)",
+    "options": ["1, 2, 3", "0, 1, 2", "3", "None of the above"],
+    "correctAnswer": "0, 1, 2"
+  },
+  {
+    "question": "What does 'Git' help developers with?",
+    "codeSnippet": "",
+    "options": [
+      "Version control and collaboration",
+      "Hosting websites",
+      "Creating databases",
+      "Building APIs"
+    ],
+    "correctAnswer": "Version control and collaboration"
   }
 ]
