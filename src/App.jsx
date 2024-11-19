@@ -89,8 +89,15 @@ function App() {
       });
     }
 
-    setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
     setSelectedAnswer(null);
+
+    if (currentQuestionIndex === shuffledQuestions.length - 1) {
+      const reshuffledQuestions = shuffleArray(questions);
+      setShuffledQuestions(reshuffledQuestions);
+      setCurrentQuestionIndex(0);
+    } else {
+      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+    }
   };
 
   const handleCountdownComplete = () => {
