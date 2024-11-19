@@ -1,132 +1,160 @@
 [
   {
-    "question": "What does the following Python code do?",
-    "codeSnippet": "print('Hello, IT World!')",
+    "question": "What is the output of this Python code?",
+    "codeSnippet": "x = [1, 2, 3]\ny = x\ny.append(4)\nprint(x)",
+    "options": ["[1, 2, 3]", "[4]", "None of the above", "[1, 2, 3, 4]"],
+    "correctAnswer": "[1, 2, 3, 4]"
+  },
+  {
+    "question": "What does the following SQL query return?",
+    "codeSnippet": "SELECT AVG(salary) FROM employees;",
     "options": [
-      "Prints a greeting to the IT World",
-      "Defines a function",
-      "Throws an error",
-      "None of the above"
+      "An error",
+      "The highest salary in the employees table",
+      "The total salary in the employees table",
+      "The average salary in the employees table"
     ],
-    "correctAnswer": "Prints a greeting to the IT World"
+    "correctAnswer": "The average salary in the employees table"
   },
   {
-    "question": "Which data structure is used to store key-value pairs in Python?",
+    "question": "Which protocol is used to send emails?",
     "codeSnippet": "",
-    "options": ["List", "Dictionary", "Tuple", "Set"],
-    "correctAnswer": "Dictionary"
-  },
-  {
-    "question": "What is the time complexity of searching in a balanced binary search tree?",
-    "codeSnippet": "",
-    "options": ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
-    "correctAnswer": "O(log n)"
-  },
-  {
-    "question": "What is the output of the following SQL query?",
-    "codeSnippet": "SELECT COUNT(*) FROM employees WHERE department = 'IT';",
-    "options": [
-      "The total number of employees",
-      "The number of employees in the IT department",
-      "An error due to missing columns",
-      "None of the above"
-    ],
-    "correctAnswer": "The number of employees in the IT department"
-  },
-  {
-    "question": "What is the main purpose of a firewall?",
-    "codeSnippet": "",
-    "options": [
-      "To block unauthorized access to or from a network",
-      "To store website data",
-      "To encrypt network traffic",
-      "To create a backup of files"
-    ],
-    "correctAnswer": "To block unauthorized access to or from a network"
+    "options": ["HTTP", "FTP", "SMTP", "SSH"],
+    "correctAnswer": "SMTP"
   },
   {
     "question": "What does the following JavaScript code do?",
-    "codeSnippet": "const numbers = [1, 2, 3, 4];\nconst doubled = numbers.map(num => num * 2);\nconsole.log(doubled);",
+    "codeSnippet": "setTimeout(() => console.log('Hello, IT World!'), 1000);",
     "options": [
-      "Doubles each number in the array and prints [2, 4, 6, 8]",
-      "Adds two to each number and prints [3, 4, 5, 6]",
-      "Throws a syntax error",
-      "None of the above"
+      "Throws an error",
+      "Prints 'Hello, IT World!' immediately",
+      "Prints 'Hello, IT World!' after 1 second",
+      "Does nothing"
     ],
-    "correctAnswer": "Doubles each number in the array and prints [2, 4, 6, 8]"
+    "correctAnswer": "Prints 'Hello, IT World!' after 1 second"
   },
   {
-    "question": "What does HTTP stand for?",
+    "question": "What is the main purpose of a DNS server?",
     "codeSnippet": "",
     "options": [
-      "HyperText Transmission Protocol",
-      "HyperText Transfer Protocol",
-      "HyperText Transport Protocol",
-      "HyperText Transaction Protocol"
+      "To provide email services",
+      "To secure network communications",
+      "To host websites",
+      "To translate domain names into IP addresses"
     ],
-    "correctAnswer": "HyperText Transfer Protocol"
+    "correctAnswer": "To translate domain names into IP addresses"
   },
   {
-    "question": "Which of the following is a relational database management system?",
-    "codeSnippet": "",
-    "options": ["MySQL", "MongoDB", "Redis", "Firebase"],
-    "correctAnswer": "MySQL"
+    "question": "What does the following C++ code do?",
+    "codeSnippet": "std::string s = \"hello\";\ns[0] = 'H';\nstd::cout << s;",
+    "options": ["'Hello'", "'H'", "'hello'", "Compilation error"],
+    "correctAnswer": "'Hello'"
   },
   {
-    "question": "Which language is primarily used for data analysis and visualization?",
+    "question": "What is the output of this Python function?",
+    "codeSnippet": "def greet():\n  return 'Hello, IT World!'\nprint(greet())",
+    "options": ["greet", "Error", "None", "Hello, IT World!"],
+    "correctAnswer": "Hello, IT World!"
+  },
+  {
+    "question": "Which of the following is an example of an interpreted language?",
     "codeSnippet": "",
-    "options": ["JavaScript", "Python", "C++", "Assembly"],
+    "options": ["Assembly", "Python", "C", "C++"],
     "correctAnswer": "Python"
   },
   {
-    "question": "What does the following shell command do?",
-    "codeSnippet": "ls -l /home/user",
+    "question": "What does 'OOP' stand for in programming?",
+    "codeSnippet": "",
     "options": [
-      "Lists detailed information about files and directories in /home/user",
-      "Deletes all files in /home/user",
-      "Changes the current directory to /home/user",
+      "Operational Output Programming",
+      "None of the above",
+      "Object-Oriented Programming",
+      "Object-On Programming"
+    ],
+    "correctAnswer": "Object-Oriented Programming"
+  },
+  {
+    "question": "What does the following bash command do?",
+    "codeSnippet": "mkdir -p /home/user/new_folder",
+    "options": [
+      "Moves to the 'new_folder' directory",
+      "Lists the files in the 'new_folder' directory",
+      "Creates the 'new_folder' directory",
+      "Deletes the 'new_folder' directory"
+    ],
+    "correctAnswer": "Creates the 'new_folder' directory"
+  },
+  {
+    "question": "What is the purpose of the 'WHERE' clause in SQL?",
+    "codeSnippet": "",
+    "options": [
+      "To filter rows based on a condition",
+      "To select specific columns",
+      "To group rows with similar values",
+      "To sort rows in a specific order"
+    ],
+    "correctAnswer": "To filter rows based on a condition"
+  },
+  {
+    "question": "What will the following JavaScript code output?",
+    "codeSnippet": "console.log(typeof null);",
+    "options": ["'undefined'", "'null'", "'string'", "'object'"],
+    "correctAnswer": "'object'"
+  },
+  {
+    "question": "What does a load balancer do in IT infrastructure?",
+    "codeSnippet": "",
+    "options": [
+      "Encrypts network traffic",
+      "Monitors network performance",
+      "Stores data permanently",
+      "Distributes incoming traffic across multiple servers"
+    ],
+    "correctAnswer": "Distributes incoming traffic across multiple servers"
+  },
+  {
+    "question": "What does the following Python code do?",
+    "codeSnippet": "my_list = [1, 2, 3]\nprint(len(my_list))",
+    "options": ["Error", "3", "2", "1"],
+    "correctAnswer": "3"
+  },
+  {
+    "question": "Which of the following is NOT an HTTP method?",
+    "codeSnippet": "",
+    "options": ["POST", "FETCH", "DELETE", "GET"],
+    "correctAnswer": "FETCH"
+  },
+  {
+    "question": "What does a 'public' access modifier do in C++?",
+    "codeSnippet": "",
+    "options": [
+      "Hides class members from other classes",
+      "Restricts class members to the class itself",
+      "Makes class members accessible outside the class",
       "None of the above"
     ],
-    "correctAnswer": "Lists detailed information about files and directories in /home/user"
+    "correctAnswer": "Makes class members accessible outside the class"
   },
   {
-    "question": "Which of the following is NOT a programming language?",
-    "codeSnippet": "",
-    "options": ["Python", "HTML", "Java", "C#"],
-    "correctAnswer": "HTML"
-  },
-  {
-    "question": "What is the purpose of an API?",
+    "question": "What is a VPN used for?",
     "codeSnippet": "",
     "options": [
-      "To allow communication between software applications",
-      "To store user data",
-      "To secure a website",
-      "To create a database"
+      "To compress large files",
+      "To create backups",
+      "To host a website",
+      "To create a secure connection over a public network"
     ],
-    "correctAnswer": "To allow communication between software applications"
+    "correctAnswer": "To create a secure connection over a public network"
   },
   {
-    "question": "Which of the following is an example of cloud storage?",
-    "codeSnippet": "",
-    "options": ["Google Drive", "RAM", "Hard Disk", "CPU Cache"],
-    "correctAnswer": "Google Drive"
-  },
-  {
-    "question": "What will the following Python code output?",
-    "codeSnippet": "for i in range(3):\n  print(i)",
-    "options": ["1, 2, 3", "0, 1, 2", "3", "None of the above"],
-    "correctAnswer": "0, 1, 2"
-  },
-  {
-    "question": "What does 'Git' help developers with?",
-    "codeSnippet": "",
+    "question": "What does the following HTML code create?",
+    "codeSnippet": "<a href='https://www.example.com'>Visit Example</a>",
     "options": [
-      "Version control and collaboration",
-      "Hosting websites",
-      "Creating databases",
-      "Building APIs"
+      "An image",
+      "A paragraph",
+      "A hyperlink to 'www.example.com'",
+      "A button"
     ],
-    "correctAnswer": "Version control and collaboration"
+    "correctAnswer": "A hyperlink to 'www.example.com'"
   }
 ]
