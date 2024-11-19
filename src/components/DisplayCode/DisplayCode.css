@@ -1,25 +1,33 @@
 .display-code-container {
   width: 25rem;
   height: 150px;
-  background-color: #1e1e2f;
+  background-color: #282c34;
   color: #f8f8f2;
-  font-family: monospace;
+  font-family: "Fira Code", monospace;
   border-radius: 8px;
-  overflow-x: auto;
-  overflow-y: auto;
-  white-space: pre;
-  word-wrap: normal;
+  overflow: hidden;
   margin: 10px auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   padding: 0.5rem;
   border: 1px solid #44475a;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.question {
+  font-size: 0.9rem;
+  color: #8be9fd;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
 }
 
 .code {
-  text-align: left;
-  color: #ffb86c;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  color: #50fa7b;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  word-break: break-word;
+  flex: 1;
 }

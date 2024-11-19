@@ -231,7 +231,6 @@ function App() {
                     isResuming={isResuming}
                     setIsResuming={setIsResuming}
                   />
-
                   <div className="pause-resume">
                     <button
                       className="icon-container"
@@ -257,8 +256,8 @@ function App() {
                   {currentQuestion && (
                     <>
                       <DisplayCode
+                        question={currentQuestion.question}
                         codeString={currentQuestion.codeSnippet}
-                        options={currentQuestion.options}
                       />
                       <AnswerGrid
                         options={currentQuestion.options}
