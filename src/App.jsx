@@ -45,6 +45,7 @@ const randomizeAnswerPositions = (options, correctAnswer, lastPositions) => {
 function App() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [randomizedAnswers, setRandomizedAnswers] = useState([]);
   const [score, setScore] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [gameStarted, setGameStarted] = useState(false);
@@ -95,6 +96,17 @@ function App() {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    if (currentQuestion) {
+      const randomized = randomizeAnswerPositions(
+        currentQuestion.options,
+        currentQuestion.correctAnswer,
+        lastCorrectPositions
+      );
+      setRandomizedAnswers(randomized);
+    }
+  }, [currentQuestion, lastCorrectPositions]);
 
   const handleSelectAnswer = (answer) => {
     if (selectedAnswer !== null || winner || isPaused) return;
@@ -290,11 +302,7 @@ function App() {
                         codeString={currentQuestion.codeSnippet}
                       />
                       <AnswerGrid
-                        options={randomizeAnswerPositions(
-                          currentQuestion.options,
-                          currentQuestion.correctAnswer,
-                          lastCorrectPositions
-                        )}
+                        options={randomizedAnswers}
                         onSelectAnswer={handleSelectAnswer}
                       />
                     </>
