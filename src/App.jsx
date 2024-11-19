@@ -20,6 +20,28 @@ const shuffleArray = (array) => {
   return shuffledArray;
 };
 
+const randomizeAnswerPositions = (options, correctAnswer, lastPositions) => {
+  let shuffled = shuffleArray(options);
+  const correctIndex = shuffled.indexOf(correctAnswer);
+
+  if (lastPositions.includes(correctIndex)) {
+    const availableIndices = shuffled
+      .map((_, i) => i)
+      .filter((i) => !lastPositions.includes(i));
+
+    if (availableIndices.length > 0) {
+      const newCorrectIndex =
+        availableIndices[Math.floor(Math.random() * availableIndices.length)];
+      [shuffled[correctIndex], shuffled[newCorrectIndex]] = [
+        shuffled[newCorrectIndex],
+        shuffled[correctIndex],
+      ];
+    }
+  }
+
+  return shuffled;
+};
+
 function App() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -38,6 +60,7 @@ function App() {
   const [isPaused, setIsPaused] = useState(false);
   const [isResuming, setIsResuming] = useState(false);
   const [aiStep, setAiStep] = useState(0);
+  const [lastCorrectPositions, setLastCorrectPositions] = useState([]);
 
   const currentQuestion = shuffledQuestions[currentQuestionIndex];
 
@@ -267,7 +290,11 @@ function App() {
                         codeString={currentQuestion.codeSnippet}
                       />
                       <AnswerGrid
-                        options={currentQuestion.options}
+                        options={randomizeAnswerPositions(
+                          currentQuestion.options,
+                          currentQuestion.correctAnswer,
+                          lastCorrectPositions
+                        )}
                         onSelectAnswer={handleSelectAnswer}
                       />
                     </>
