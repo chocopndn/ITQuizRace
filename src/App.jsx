@@ -5,6 +5,7 @@ import AnswerGrid from "./components/AnswerGrid/AnswerGrid";
 import questions from "./assets/json/questions.json";
 import aiNames from "./assets/json/aiNames.json";
 import StopLight from "./components/StopLight/StopLight";
+import Modal from "./components/Modal/Modal";
 import "./App.css";
 
 import HomeIcon from "./assets/icons/home.svg";
@@ -43,6 +44,10 @@ const randomizeAnswerPositions = (options, correctAnswer, lastPositions) => {
 };
 
 function App() {
+  const [difficulty, setDifficulty] = useState("Easy");
+  const [unlockedImpossible, setUnlockedImpossible] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [titlePressCount, setTitlePressCount] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [randomizedAnswers, setRandomizedAnswers] = useState([]);
@@ -194,6 +199,25 @@ function App() {
     setIsPaused((prev) => !prev);
   };
 
+  const handleTitleClick = () => {
+    setTitlePressCount((prevCount) => {
+      const newCount = prevCount + 1;
+      if (newCount === 5) {
+        setUnlockedImpossible(true);
+        setShowModal(true);
+      }
+      return newCount;
+    });
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  const handleDifficultyChange = (level) => {
+    setDifficulty(level);
+  };
+
   if (isSmallScreen) {
     return (
       <div className="small-screen-warning">
@@ -221,9 +245,18 @@ function App() {
 
   return (
     <div className="app-container">
+      {showModal && (
+        <Modal
+          title="Impossible Unlocked!"
+          message="You have unlocked the Impossible difficulty. Good luck!"
+          onClose={closeModal}
+        />
+      )}
       {onHomeScreen ? (
         <div className="ready-button-container">
-          <h1 className="title">ITQuiz Race</h1>
+          <h1 className="title" onClick={handleTitleClick}>
+            ITQuiz Race
+          </h1>
           <div className="input-container">
             <div className="input-wrapper">
               <input
@@ -244,6 +277,24 @@ function App() {
             {showError && (
               <span className="error-message">Name is required!</span>
             )}
+          </div>
+          <div className="difficulty-container">
+            {[
+              "Easy",
+              "Medium",
+              "Hard",
+              ...(unlockedImpossible ? ["Impossible"] : []),
+            ].map((level) => (
+              <button
+                key={level}
+                className={`difficulty-button ${
+                  difficulty === level ? "selected-difficulty" : ""
+                }`}
+                onClick={() => handleDifficultyChange(level)}
+              >
+                {level}
+              </button>
+            ))}
           </div>
         </div>
       ) : (
@@ -272,6 +323,7 @@ function App() {
                     setAiStep={setAiStep}
                     isResuming={isResuming}
                     setIsResuming={setIsResuming}
+                    difficulty={difficulty}
                   />
                   <div className="pause-resume">
                     <button

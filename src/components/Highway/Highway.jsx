@@ -15,6 +15,7 @@ const Highway = ({
   setAiStep,
   isResuming,
   setIsResuming,
+  difficulty,
 }) => {
   const highwayRef = useRef(null);
   const intervalRef = useRef(null);
@@ -28,10 +29,19 @@ const Highway = ({
   };
 
   const getRandomDelay = () => {
-    const delays = [
-      10000, 10500, 11000, 11500, 12000, 12500, 13000, 13500, 14000, 14500,
-      15000,
-    ];
+    const delaysByDifficulty = {
+      Easy: [
+        10000, 10500, 11000, 11500, 12000, 12500, 13000, 13500, 14000, 14500,
+        15000,
+      ],
+      Medium: [
+        6000, 6500, 7000, 7500, 8000, 8500, 9000, 9500, 10000, 10500, 11000,
+      ],
+      Hard: [2000, 2500, 3000, 3500, 4000, 5500],
+      Impossible: [500, 750, 1000, 1250, 1500],
+    };
+
+    const delays = delaysByDifficulty[difficulty] || delaysByDifficulty["Easy"];
     return delays[Math.floor(Math.random() * delays.length)];
   };
 
@@ -57,7 +67,7 @@ const Highway = ({
     return () => {
       clearInterval(intervalRef.current);
     };
-  }, [isPaused, isResuming, aiStep]);
+  }, [isPaused, isResuming, aiStep, difficulty]);
 
   useEffect(() => {
     if (isResuming) {
