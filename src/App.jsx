@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Highway from "./components/Highway/Highway";
 import DisplayCode from "./components/DisplayCode/DisplayCode";
 import AnswerGrid from "./components/AnswerGrid/AnswerGrid";
@@ -6,6 +6,7 @@ import questions from "./assets/json/questions.json";
 import aiNames from "./assets/json/aiNames.json";
 import StopLight from "./components/StopLight/StopLight";
 import Modal from "./components/Modal/Modal";
+import SettingsModal from "./components/SettingsModal/SettingsModal";
 import "./App.css";
 
 import HomeIcon from "./assets/icons/home.svg";
@@ -48,6 +49,7 @@ function App() {
   const [difficulty, setDifficulty] = useState("Easy");
   const [unlockedImpossible, setUnlockedImpossible] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
   const [titlePressCount, setTitlePressCount] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -68,6 +70,14 @@ function App() {
   const [isResuming, setIsResuming] = useState(false);
   const [aiStep, setAiStep] = useState(0);
   const [lastCorrectPositions, setLastCorrectPositions] = useState([]);
+  const [bgMusic, setBgMusic] = useState(
+    "./src/assets/sounds/music/space_cadet_training_montage.wav"
+  );
+  const [bgMusicMuted, setBgMusicMuted] = useState(false);
+  const [fxMuted, setFxMuted] = useState(false);
+  const [bgVolume, setBgVolume] = useState(100);
+  const [fxVolume, setFxVolume] = useState(100);
+  const audioRef = useRef(null);
 
   const currentQuestion = shuffledQuestions[currentQuestionIndex];
 
@@ -93,6 +103,45 @@ function App() {
   useEffect(() => {
     initializeGame();
   }, []);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = bgVolume / 100;
+      audioRef.current.loop = true;
+      audioRef.current.muted = bgMusicMuted;
+    }
+  }, [bgVolume, bgMusicMuted]);
+
+  useEffect(() => {
+    if (readyClicked && audioRef.current) {
+      audioRef.current.play().catch((error) => {
+        console.error("Failed to play background music on start:", error);
+      });
+    }
+  }, [readyClicked]);
+
+  const handleMusicChange = (musicPath) => {
+    setBgMusic(musicPath);
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.src = musicPath;
+      audioRef.current
+        .play()
+        .catch((error) =>
+          console.error("Failed to play background music:", error)
+        );
+    }
+  };
+
+  const handleSettingsClick = () => {
+    setShowSettings(true);
+    setIsPaused(true);
+  };
+
+  const closeSettings = () => {
+    setShowSettings(false);
+    setIsPaused(false);
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -219,6 +268,39 @@ function App() {
     setDifficulty(level);
   };
 
+  const handleUserInteraction = () => {
+    if (audioRef.current && audioRef.current.paused) {
+      audioRef.current.play().catch((error) => {
+        console.error(
+          "Failed to play background music on user interaction:",
+          error
+        );
+      });
+    }
+  };
+
+  const handleToggleBgMusicMute = () => {
+    setBgMusicMuted((prevMuted) => !prevMuted);
+    if (audioRef.current) {
+      audioRef.current.muted = !audioRef.current.muted;
+    }
+  };
+
+  const handleToggleFxMute = () => {
+    setFxMuted((prevMuted) => !prevMuted);
+  };
+
+  const handleBgVolumeChange = (volume) => {
+    setBgVolume(volume);
+    if (audioRef.current) {
+      audioRef.current.volume = volume / 100;
+    }
+  };
+
+  const handleFxVolumeChange = (volume) => {
+    setFxVolume(volume);
+  };
+
   if (isSmallScreen) {
     return (
       <div className="small-screen-warning">
@@ -245,12 +327,26 @@ function App() {
   }
 
   return (
-    <div className="app-container">
+    <div className="app-container" onClick={handleUserInteraction}>
       {showModal && (
         <Modal
           title="Impossible Unlocked!"
           message="You have unlocked the Impossible difficulty. Good luck!"
           onClose={closeModal}
+        />
+      )}
+      {showSettings && (
+        <SettingsModal
+          onClose={closeSettings}
+          onChangeMusic={handleMusicChange}
+          onToggleBgMusicMute={handleToggleBgMusicMute}
+          onToggleFxMute={handleToggleFxMute}
+          bgMusicMuted={bgMusicMuted}
+          fxMuted={fxMuted}
+          bgVolume={bgVolume}
+          onChangeBgVolume={handleBgVolumeChange}
+          fxVolume={fxVolume}
+          onChangeFxVolume={handleFxVolumeChange}
         />
       )}
       {onHomeScreen ? (
@@ -345,7 +441,10 @@ function App() {
                     >
                       <img src={PauseIcon} alt="Pause Icon" />
                     </button>
-                    <button className="icon-container">
+                    <button
+                      className="icon-container"
+                      onClick={handleSettingsClick}
+                    >
                       <img src={SettingsIcon} alt="Settings Icon" />
                     </button>
                   </div>
@@ -374,6 +473,10 @@ function App() {
           )}
         </>
       )}
+      <audio ref={audioRef} loop autoPlay>
+        <source src={bgMusic} type="audio/mpeg" />
+        <p>Your browser does not support the audio element.</p>
+      </audio>
     </div>
   );
 }

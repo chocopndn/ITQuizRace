@@ -1,0 +1,145 @@
+.settings-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.settings-modal-container {
+  background-color: #282a36;
+  color: #f8f8f2;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  width: 90%;
+  max-width: 500px;
+  max-height: 80%;
+  overflow-y: auto;
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background-color: #282a36;
+  padding-bottom: 10px;
+  z-index: 10;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background-color: #282a36;
+  padding-bottom: 10px;
+  z-index: 10;
+}
+
+.modal-title {
+  flex: 1;
+  font-size: 1.8rem;
+  color: #50fa7b;
+  text-align: center;
+  margin: 0;
+}
+
+.close-button {
+  position: absolute;
+  right: 15px;
+  top: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.close-button:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+.close-button img {
+  width: 24px;
+  height: 24px;
+}
+
+.modal-section {
+  margin-top: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.modal-option {
+  margin: 15px 0;
+  width: 80%;
+}
+
+.mute-toggle-button {
+  background: none;
+  border: none;
+  color: #f8f8f2;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: "Fira Code", monospace;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+
+.mute-toggle-button:hover {
+  color: #50fa7b;
+}
+
+.mute-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.music-dropdown {
+  background-color: #282a36;
+  color: #f8f8f2;
+  border: 1px solid #6272a4;
+  padding: 10px;
+  border-radius: 5px;
+  font-family: "Fira Code", monospace;
+}
+
+input[type="range"] {
+  width: 100%;
+  margin-top: 5px;
+  appearance: none;
+  height: 8px;
+  background: #6272a4;
+  border-radius: 5px;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #50fa7b;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background-color: #7088c0;
+}
