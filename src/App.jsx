@@ -11,6 +11,7 @@ import "./App.css";
 import HomeIcon from "./assets/icons/home.svg";
 import PauseIcon from "./assets/icons/pause.svg";
 import RestartIcon from "./assets/icons/restart.svg";
+import SettingsIcon from "./assets/icons/settings.svg";
 
 const shuffleArray = (array) => {
   let shuffledArray = [...array];
@@ -343,6 +344,9 @@ function App() {
                       onClick={handlePauseClick}
                     >
                       <img src={PauseIcon} alt="Pause Icon" />
+                    </button>
+                    <button className="icon-container">
+                      <img src={SettingsIcon} alt="Settings Icon" />
                     </button>
                   </div>
                 </div>
