@@ -71,7 +71,7 @@ function App() {
   const [aiStep, setAiStep] = useState(0);
   const [lastCorrectPositions, setLastCorrectPositions] = useState([]);
   const [bgMusic, setBgMusic] = useState(
-    "./src/assets/sounds/music/space_cadet_training_montage.wav"
+    "/sounds/music/space_cadet_training_montage.wav"
   );
   const [bgMusicMuted, setBgMusicMuted] = useState(false);
   const [fxMuted, setFxMuted] = useState(false);

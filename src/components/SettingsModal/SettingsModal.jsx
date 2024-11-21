@@ -8,11 +8,11 @@ import CloseButton from "../../assets/icons/xbutton.svg";
 const musicOptions = [
   {
     title: "Space Cadet Training Montage",
-    path: "./src/assets/sounds/music/space_cadet_training_montage.wav",
+    path: "/sounds/music/space_cadet_training_montage.wav",
   },
   {
     title: "Winning The Race",
-    path: "./src/assets/sounds/music/WinningTheRace.ogg",
+    path: "/sounds/music/WinningTheRace.ogg",
   },
 ];
 
