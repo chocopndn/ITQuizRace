@@ -7,6 +7,7 @@ import aiNames from "./assets/json/aiNames.json";
 import StopLight from "./components/StopLight/StopLight";
 import Modal from "./components/Modal/Modal";
 import SettingsModal from "./components/SettingsModal/SettingsModal";
+import musicOptions from "./assets/json/musicOptions.json";
 import "./App.css";
 
 import HomeIcon from "./assets/icons/home.svg";
@@ -78,6 +79,7 @@ function App() {
   const [bgVolume, setBgVolume] = useState(100);
   const [fxVolume, setFxVolume] = useState(100);
   const audioRef = useRef(null);
+  const [loading, setLoading] = useState(true);
 
   const currentQuestion = shuffledQuestions[currentQuestionIndex];
 
@@ -99,6 +101,21 @@ function App() {
     const randomIndex = Math.floor(Math.random() * aiNames.length);
     setAiName(aiNames[randomIndex]);
   };
+
+  useEffect(() => {
+    const loadMusicAndInitializeGame = async () => {
+      try {
+        const defaultMusic = musicOptions[0].path;
+        setBgMusic(defaultMusic);
+        setLoading(false);
+        initializeGame();
+      } catch (error) {
+        console.error("Error loading game assets:", error);
+      }
+    };
+
+    loadMusicAndInitializeGame();
+  }, []);
 
   useEffect(() => {
     initializeGame();
@@ -307,6 +324,15 @@ function App() {
       <div className="small-screen-warning">
         This game is designed for PC screens only. Please switch to a larger
         screen.
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="loading-modal">
+        <h2>Game is Loading...</h2>
+        <p>Please wait while the game assets are being prepared.</p>
       </div>
     );
   }
