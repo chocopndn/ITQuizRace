@@ -107,8 +107,8 @@ function App() {
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = bgVolume / 100;
-      audioRef.current.loop = true;
       audioRef.current.muted = bgMusicMuted;
+      audioRef.current.loop = true;
     }
   }, [bgVolume, bgMusicMuted]);
 
@@ -121,15 +121,16 @@ function App() {
   }, [readyClicked]);
 
   const handleMusicChange = (musicPath) => {
-    setBgMusic(musicPath);
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.src = musicPath;
-      audioRef.current
-        .play()
-        .catch((error) =>
-          console.error("Failed to play background music:", error)
-        );
+    if (bgMusic !== musicPath) {
+      setBgMusic(musicPath);
+      if (audioRef.current) {
+        audioRef.current.src = musicPath;
+        audioRef.current
+          .play()
+          .catch((error) =>
+            console.error("Failed to play new background music:", error)
+          );
+      }
     }
   };
 
@@ -310,22 +311,6 @@ function App() {
     );
   }
 
-  if (winner) {
-    return (
-      <div className="winner-message">
-        <p>{winner} wins the game!</p>
-        <div className="winner-button">
-          <button className="restart-button" onClick={handleRestart}>
-            Restart
-          </button>
-          <button className="home-button" onClick={handleHomeClick}>
-            Go Home
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="app-container" onClick={handleUserInteraction}>
       {showModal && (
@@ -349,7 +334,19 @@ function App() {
           onChangeFxVolume={handleFxVolumeChange}
         />
       )}
-      {onHomeScreen ? (
+      {winner ? (
+        <div className="winner-message">
+          <p>{winner} wins the game!</p>
+          <div className="winner-button">
+            <button className="restart-button" onClick={handleRestart}>
+              Restart
+            </button>
+            <button className="home-button" onClick={handleHomeClick}>
+              Go Home
+            </button>
+          </div>
+        </div>
+      ) : onHomeScreen ? (
         <div className="ready-button-container">
           <h1 className="title" onClick={handleTitleClick}>
             ITQuiz Race
@@ -473,7 +470,7 @@ function App() {
           )}
         </>
       )}
-      <audio ref={audioRef} loop autoPlay>
+      <audio ref={audioRef} loop>
         <source src={bgMusic} type="audio/mpeg" />
         <p>Your browser does not support the audio element.</p>
       </audio>
