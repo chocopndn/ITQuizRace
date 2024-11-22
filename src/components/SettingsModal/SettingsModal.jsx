@@ -4,17 +4,7 @@ import "./SettingsModal.css";
 import MuteIcon from "../../assets/icons/mute.svg";
 import UnmuteIcon from "../../assets/icons/unmute.svg";
 import CloseButton from "../../assets/icons/xbutton.svg";
-
-const musicOptions = [
-  {
-    title: "Space Cadet Training Montage",
-    path: "/sounds/music/space_cadet_training_montage.wav",
-  },
-  {
-    title: "Winning The Race",
-    path: "/sounds/music/WinningTheRace.ogg",
-  },
-];
+import musicOptions from "../../assets/json/musicOptions.json";
 
 const SettingsModal = ({
   onClose,
