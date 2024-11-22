@@ -6,5 +6,9 @@
   {
     "title": "Winning The Race",
     "path": "/sounds/music/WinningTheRace.ogg"
+  },
+  {
+    "title": "Awake",
+    "path": "/sounds/music/awake.mp3"
   }
 ]
