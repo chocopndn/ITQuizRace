@@ -331,3 +331,48 @@ input:invalid {
   color: #282a36;
   font-weight: bold;
 }
+
+.loading-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(30, 30, 46, 0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loading-modal h2 {
+  font-size: 2.5rem;
+  color: #bd93f9;
+  text-shadow: 0 0 8px #bd93f9, 0 0 15px rgba(189, 147, 249, 0.8),
+    0 0 30px rgba(189, 147, 249, 0.6);
+  margin-bottom: 20px;
+  font-family: "Fira Code", monospace;
+  animation: glow 2s ease-in-out infinite;
+}
+
+.loading-modal p {
+  font-size: 1.5rem;
+  color: #f8f8f2;
+  text-align: center;
+  max-width: 80%;
+  line-height: 1.5;
+  font-family: "Fira Code", monospace;
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    text-shadow: 0 0 8px #bd93f9, 0 0 15px rgba(189, 147, 249, 0.8),
+      0 0 30px rgba(189, 147, 249, 0.6);
+  }
+  50% {
+    text-shadow: 0 0 12px #d6afff, 0 0 20px rgba(189, 147, 249, 0.9),
+      0 0 40px rgba(189, 147, 249, 0.8);
+  }
+}

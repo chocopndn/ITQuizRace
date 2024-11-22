@@ -105,6 +105,15 @@ function App() {
   useEffect(() => {
     const loadMusicAndInitializeGame = async () => {
       try {
+        await Promise.all(
+          musicOptions.map((music) => {
+            return new Promise((resolve, reject) => {
+              const audio = new Audio(music.path);
+              audio.oncanplaythrough = resolve;
+              audio.onerror = reject;
+            });
+          })
+        );
         const defaultMusic = musicOptions[0].path;
         setBgMusic(defaultMusic);
         setLoading(false);
